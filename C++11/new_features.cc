@@ -5,7 +5,7 @@
  * @author Gang Chen (smilechengang@qq.com)
  * @date 2023-03-29 20:54:54
  * @last_author: Please set LastEditors
- * @last_edit_time: 2023-04-13 17:58:46
+ * @last_edit_time: 2023-04-19 17:47:52
  */
 
 #include <iostream>
@@ -39,53 +39,77 @@ using namespace std;
 // }
 
 
+// #include <iostream>
+// #include <string>
+// #include <unordered_map>
+
+// struct Person {
+//     std::string name;
+//     int age;
+
+//     bool operator==(const Person& other) const {
+//         return name == other.name && age == other.age;
+//     }
+// };
+
+// namespace std {
+//     template<>
+//     struct hash<Person> {
+//         size_t operator()(const Person& p) const {
+//             return hash<string>()(p.name) ^ hash<int>()(p.age);
+//         }
+//     };
+// }
+
+// int main() {
+//     std::unordered_map<Person, int> ages = {
+//         {{"Alice", 30}, 30},
+//         {{"Bob", 40}, 40},
+//         {{"Charlie", 50}, 50}
+//     };
+
+//     Person p1 = {"Alice", 30};
+//     auto it = ages.find(p1);
+//     if (it != ages.end()) {
+//         std::cout << p1.name << " is " << it->second << " years old.\n";
+//     } else {
+//         std::cout << "Person not found.\n";
+//     }
+
+//     Person p2 = {"David", 20};
+//     it = ages.find(p2);
+//     if (it != ages.end()) {
+//         std::cout << p2.name << " is " << it->second << " years old.\n";
+//     } else {
+//         std::cout << "Person not found.\n";
+//     }
+
+//     return 0;
+// }
+
+#include <boost/lockfree/spsc_queue.hpp>
 #include <iostream>
-#include <string>
-#include <unordered_map>
 
-struct Person {
-    std::string name;
-    int age;
+int main()
+{
+    boost::lockfree::spsc_queue<int, boost::lockfree::capacity<1024>> queue;
 
-    bool operator==(const Person& other) const {
-        return name == other.name && age == other.age;
-    }
-};
-
-namespace std {
-    template<>
-    struct hash<Person> {
-        size_t operator()(const Person& p) const {
-            return hash<string>()(p.name) ^ hash<int>()(p.age);
+    // 生产者线程
+    std::thread producer([&] {
+        for (int i = 0; i < 1000; ++i) {
+            while (!queue.push(i)); // 等待队列可用
         }
-    };
-}
+    });
 
-int main() {
-    std::unordered_map<Person, int> ages = {
-        {{"Alice", 30}, 30},
-        {{"Bob", 40}, 40},
-        {{"Charlie", 50}, 50}
-    };
+    // 消费者线程
+    std::thread consumer([&] {
+        int value;
+        for (int i = 0; i < 1000; ++i) {
+            while (!queue.pop(value)); // 等待队列非空
+            std::cout << value << std::endl;
+        }
+    });
 
-    Person p1 = {"Alice", 30};
-    auto it = ages.find(p1);
-    if (it != ages.end()) {
-        std::cout << p1.name << " is " << it->second << " years old.\n";
-    } else {
-        std::cout << "Person not found.\n";
-    }
-
-    Person p2 = {"David", 20};
-    it = ages.find(p2);
-    if (it != ages.end()) {
-        std::cout << p2.name << " is " << it->second << " years old.\n";
-    } else {
-        std::cout << "Person not found.\n";
-    }
-
-    return 0;
-
-
-
+    producer.join();
+    consumer.join();
 }
