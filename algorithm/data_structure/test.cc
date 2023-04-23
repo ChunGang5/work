@@ -2,7 +2,7 @@
  * @Author: Gang Chen (smilechengang@qq.com)
  * @date: 2023-04-17 03:23:14
  * @last_author: Gang Chen (smilechengang@qq.com)
- * @last_edit_time: 2023-04-17 03:23:15
+ * @last_edit_time: 2023-04-23 06:52:34
  */
 #include <iostream>
 #include <vector>
@@ -38,5 +38,6 @@ int main()
     vector<int> nums = {1, 1, 1, 3, 3, 4, 3, 2, 4, 2};
     bool flag = solu.containsDuplicate(nums);
     cout << flag << endl;
+    
     return 0;
 }
