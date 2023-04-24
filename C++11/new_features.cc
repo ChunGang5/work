@@ -5,7 +5,7 @@
  * @author Gang Chen (smilechengang@qq.com)
  * @date 2023-03-29 20:54:54
  * @last_author: Please set LastEditors
- * @last_edit_time: 2023-04-19 17:47:52
+ * @last_edit_time: 2023-04-24 16:42:25
  */
 
 #include <iostream>
@@ -87,29 +87,30 @@ using namespace std;
 //     return 0;
 // }
 
-#include <boost/lockfree/spsc_queue.hpp>
-#include <iostream>
+// #include <boost/lockfree/spsc_queue.hpp>
+// #include <iostream>
 
-int main()
-{
-    boost::lockfree::spsc_queue<int, boost::lockfree::capacity<1024>> queue;
+// int main()
+// {
+//     boost::lockfree::spsc_queue<int, boost::lockfree::capacity<1024>> queue;
 
-    // 生产者线程
-    std::thread producer([&] {
-        for (int i = 0; i < 1000; ++i) {
-            while (!queue.push(i)); // 等待队列可用
-        }
-    });
+//     // 生产者线程
+//     std::thread producer([&] {
+//         for (int i = 0; i < 1000; ++i) {
+//             while (!queue.push(i)); // 等待队列可用
+//         }
+//     });
 
-    // 消费者线程
-    std::thread consumer([&] {
-        int value;
-        for (int i = 0; i < 1000; ++i) {
-            while (!queue.pop(value)); // 等待队列非空
-            std::cout << value << std::endl;
-        }
-    });
+//     // 消费者线程
+//     std::thread consumer([&] {
+//         int value;
+//         for (int i = 0; i < 1000; ++i) {
+//             while (!queue.pop(value)); // 等待队列非空
+//             std::cout << value << std::endl;
+//         }
+//     });
 
-    producer.join();
-    consumer.join();
-}
+//     producer.join();
+//     consumer.join();
+// }
+性能优化
