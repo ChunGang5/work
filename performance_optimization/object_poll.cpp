@@ -4,10 +4,10 @@
  */
 
 #include <iostream>
-// #include <unordered_map>
-// #include <queue>
-// #include <vector>
-// #include <memory>
+#include <unordered_map>
+#include <queue>
+#include <vector>
+#include <memory>
 
 // template <typename T>
 // class ObjectPool {
@@ -80,47 +80,46 @@
 //     // 由于对象池中的节点对象是共享的，不会在使用完后被销毁，因此无需手动释放内存
 // }
 
+template<typename T>
+class ObjectPool {
+public:
+    ObjectPool(size_t max_size) : max_size_(max_size) {}
+
+    std::shared_ptr<T> Get() {
+        std::shared_ptr<T> obj;
+        if (!pool_.empty()) {
+            obj = pool_.front();
+            pool_.pop();
+        } else {
+            obj = std::make_shared<T>();
+        }
+        return obj;
+    }
+
+    void Release(std::shared_ptr<T> obj) {
+        if (pool_.size() < max_size_) {
+            pool_.push(obj);
+        }
+    }
+
+    int size()
+    {
+        return pool_.size();
+    }
+
+private:
+    std::queue<std::shared_ptr<T>> pool_;
+    size_t max_size_;
+};
+
+struct MyStruct {
+    int a, b;
+    MyStruct() : a(0), b(0) {}
+};
+
 int main()
 {
-    // ObjectPool<MyStruct> pool(5);
-    // std::cout << pool.size() << std::endl;
+    ObjectPool<MyStruct> pool(5);
+    std::cout << pool.size() << std::endl;
     return 0;
 }
-
-
-// template<typename T>
-// class ObjectPool {
-// public:
-//     ObjectPool(size_t max_size) : max_size_(max_size) {}
-
-//     std::shared_ptr<T> Get() {
-//         std::shared_ptr<T> obj;
-//         if (!pool_.empty()) {
-//             obj = pool_.front();
-//             pool_.pop();
-//         } else {
-//             obj = std::make_shared<T>();
-//         }
-//         return obj;
-//     }
-
-//     void Release(std::shared_ptr<T> obj) {
-//         if (pool_.size() < max_size_) {
-//             pool_.push(obj);
-//         }
-//     }
-
-//     int size()
-//     {
-//         return pool_.size();
-//     }
-
-// private:
-//     std::queue<std::shared_ptr<T>> pool_;
-//     size_t max_size_;
-// };
-
-// struct MyStruct {
-//     int a, b;
-//     MyStruct() : a(0), b(0) {}
-// };
