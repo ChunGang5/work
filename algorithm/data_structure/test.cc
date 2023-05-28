@@ -143,13 +143,13 @@ public:
         {
             nums1[i] = result[i];
         }
-        
         for(auto it : nums1)
         {
             cout << it << endl;
         }
     }
 };
+
 int main()
 {
     Solution solu;
@@ -159,6 +159,5 @@ int main()
     vector<int> result;
     solu.merge(nums1,3, nums2,3);
     //cout << result << endl;
-
     return 0;
 }
