@@ -10,31 +10,32 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <functional>
 
-using namespace std;
+//using namespace std;
 
-int main()
-{
-    // // 字符串原始字面量
-    // string str1 = "D:\hode\test";
-    // string str2 = R"(D:\hode\test)";
-    // string str3 = R"test(D:\hode\test)test";
-    // cout << "str1 = " << str1 << endl;
-    // cout << "str2 = " << str2 << endl;
-    // cout << "str3 = " << str3 << endl;
+// int main()
+// {
+//     // // 字符串原始字面量
+//     // string str1 = "D:\hode\test";
+//     // string str2 = R"(D:\hode\test)";
+//     // string str3 = R"test(D:\hode\test)test";
+//     // cout << "str1 = " << str1 << endl;
+//     // cout << "str2 = " << str2 << endl;
+//     // cout << "str3 = " << str3 << endl;
 
-    // nullptr
-    // char *ptr1 = "ptr";
-    // void *ptr2;
-    // ptr1 = ptr2;
-    // char *ptr = NULL;
+//     // nullptr
+//     // char *ptr1 = "ptr";
+//     // void *ptr2;
+//     // ptr1 = ptr2;
+//     // char *ptr = NULL;
 
-    if (1 && 3)
-    {
-        cout << "test" << endl;
-    }
-    return 0;
-}
+//     if (1 && 3)
+//     {
+//         cout << "test" << endl;
+//     }
+//     return 0;
+// }
 
 
 // #include <iostream>
@@ -111,3 +112,45 @@ int main()
 //     producer.join();
 //     consumer.join();
 // }
+
+// void output(int i, int j);
+// int main()
+// {
+//     std::function<void(int,int)> f = output;
+//     auto                     f2 = std::bind(output, std::placeholders::_2,2);
+//     f(1,2);
+//     f2(1,2);
+//     return 0;
+// }
+
+// void output(int i, int j)
+// {
+//     std::cout << i << j << std::endl;
+// }
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+// 仿函数类
+struct GreaterThan {
+    int threshold;
+
+    GreaterThan(int threshold) : threshold(threshold) {}
+
+    bool operator()(int value) {
+        return value > threshold;
+    }
+};
+
+int main() {
+    std::vector<int> numbers = {5, 10, 15, 20, 25, 30};
+    int threshold = 15;
+
+    // 使用仿函数作为算法的参数
+    auto result = std::count_if(numbers.begin(), numbers.end(), GreaterThan(threshold));
+
+    std::cout << "Numbers greater than " << threshold << ": " << result << std::endl;
+
+    return 0;
+}
