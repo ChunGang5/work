@@ -133,24 +133,35 @@
 #include <algorithm>
 
 // 仿函数类
-struct GreaterThan {
-    int threshold;
+// struct GreaterThan {
+//     int threshold;
 
-    GreaterThan(int threshold) : threshold(threshold) {}
+//     GreaterThan(int threshold) : threshold(threshold) {}
 
-    bool operator()(int value) {
-        return value > threshold;
-    }
-};
+//     bool operator()(int value) {
+//         return value > threshold;
+//     }
+// };
 
-int main() {
-    std::vector<int> numbers = {5, 10, 15, 20, 25, 30};
-    int threshold = 15;
+// int main() {
+//     std::vector<int> numbers = {5, 10, 15, 20, 25, 30};
+//     int threshold = 15;
 
-    // 使用仿函数作为算法的参数
-    auto result = std::count_if(numbers.begin(), numbers.end(), GreaterThan(threshold));
+//     // 使用仿函数作为算法的参数
+//     auto result = std::count_if(numbers.begin(), numbers.end(), GreaterThan(threshold));
 
-    std::cout << "Numbers greater than " << threshold << ": " << result << std::endl;
+//     std::cout << "Numbers greater than " << threshold << ": " << result << std::endl;
 
-    return 0;
+//     return 0;
+// }
+
+// lambda表达式
+int main()
+{
+    int a = 10;
+    auto f = [=](){ return a; };
+    auto f1 = [&]() { return ++a; }; // return 的三个步骤，如果是后置++，return会先把原始值抛出来，再++
+    std::cout << "a = " << f() << std::endl;
+    std::cout << "a = " << f1() << std::endl;
 }
+
