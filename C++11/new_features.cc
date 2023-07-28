@@ -156,12 +156,65 @@
 // }
 
 // lambda表达式
-int main()
-{
-    int a = 10;
-    auto f = [=](){ return a; };
-    auto f1 = [&]() { return ++a; }; // return 的三个步骤，如果是后置++，return会先把原始值抛出来，再++
-    std::cout << "a = " << f() << std::endl;
-    std::cout << "a = " << f1() << std::endl;
-}
+// int main()
+// {
+//     int a = 10;
+//     auto f = [=](){ return a; };
+//     auto f1 = [&]() { return ++a; }; // return 的三个步骤，如果是后置++，return会先把原始值抛出来，再++
+//     std::cout << "a = " << f() << std::endl;
+//     std::cout << "a = " << f1() << std::endl;
+// }
 
+#include <memory>
+// int main()
+// {
+//     std::shared_ptr<int> ptr (new int(1));
+//     int*                 p = ptr.get();
+//     std::cout << "p = " << p << "data = " << *p << std::endl;
+//     int* p2 = new int[10];
+//     std::shared_ptr<int> ptr1(p2);
+//     std::shared_ptr<int> ptr2 = ptr1;
+//     //auto ptr3 = std::make_shared<int>(10);
+//     std::weak_ptr<int> wp(ptr1);
+//     std::cout << "use count = " << wp.use_count() << std::endl;
+// }
+
+struct A;struct B;
+struct A {
+    std::shared_ptr<B> bptr;
+    ~A() {
+        std::cout << "A delete" << std::endl;
+    }
+    void Print() {
+        std::cout << "A" << std::endl;
+    }
+};
+struct B {
+    std::weak_ptr<A> aptr; // 这里改成weak_ptr
+    ~B() {
+        std::cout << "B delete" << std::endl;
+    }
+    void PrintA() {
+        if (!aptr.expired()) { // 监视shared_ptr 的生命周期
+            auto ptr = aptr.lock();
+            ptr->Print();
+        }
+    }
+};
+int main() {
+    auto aaptr = std::make_shared<A>();
+    auto bbptr = std::make_shared<B>();
+    std::weak_ptr<A> wpa(aaptr);
+    std::weak_ptr<B> wpb(bbptr);
+    std::cout << "aaptr use count = " << wpa.use_count() << std::endl;
+    std::cout << "bbptr use count = " << wpb.use_count() << std::endl;
+    aaptr->bptr = bbptr;
+    bbptr->aptr = aaptr;
+    std::cout << "aaptr use count = " << wpa.use_count() << std::endl;
+    std::cout << "bbptr use count = " << wpb.use_count() << std::endl;
+    bbptr->PrintA();
+    return 0;
+}
+#define GUARD(P) std::shared ptr<void> p##p(p[](void*p)(GetHandle()->Release(p);l);
+void* p= GetHandle()->Create();
+GUARD(p);// 安全
