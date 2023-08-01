@@ -215,6 +215,6 @@ int main() {
     bbptr->PrintA();
     return 0;
 }
-#define GUARD(P) std::shared ptr<void> p##p(p[](void*p)(GetHandle()->Release(p);l);
-void* p= GetHandle()->Create();
-GUARD(p);// 安全
+// #define GUARD(P) std::shared ptr<void> p##p(p[](void*p)(GetHandle()->Release(p);l);
+// void* p= GetHandle()->Create();
+// GUARD(p);// 安全
