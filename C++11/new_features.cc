@@ -179,42 +179,78 @@
 //     std::cout << "use count = " << wp.use_count() << std::endl;
 // }
 
-struct A;struct B;
-struct A {
-    std::shared_ptr<B> bptr;
-    ~A() {
-        std::cout << "A delete" << std::endl;
-    }
-    void Print() {
-        std::cout << "A" << std::endl;
-    }
-};
-struct B {
-    std::weak_ptr<A> aptr; // 这里改成weak_ptr
-    ~B() {
-        std::cout << "B delete" << std::endl;
-    }
-    void PrintA() {
-        if (!aptr.expired()) { // 监视shared_ptr 的生命周期
-            auto ptr = aptr.lock();
-            ptr->Print();
-        }
-    }
-};
-int main() {
-    auto aaptr = std::make_shared<A>();
-    auto bbptr = std::make_shared<B>();
-    std::weak_ptr<A> wpa(aaptr);
-    std::weak_ptr<B> wpb(bbptr);
-    std::cout << "aaptr use count = " << wpa.use_count() << std::endl;
-    std::cout << "bbptr use count = " << wpb.use_count() << std::endl;
-    aaptr->bptr = bbptr;
-    bbptr->aptr = aaptr;
-    std::cout << "aaptr use count = " << wpa.use_count() << std::endl;
-    std::cout << "bbptr use count = " << wpb.use_count() << std::endl;
-    bbptr->PrintA();
-    return 0;
-}
+// struct A;struct B;
+// struct A {
+//     std::shared_ptr<B> bptr;
+//     ~A() {
+//         std::cout << "A delete" << std::endl;
+//     }
+//     void Print() {
+//         std::cout << "A" << std::endl;
+//     }
+// };
+// struct B {
+//     std::weak_ptr<A> aptr; // 这里改成weak_ptr
+//     ~B() {
+//         std::cout << "B delete" << std::endl;
+//     }
+//     void PrintA() {
+//         if (!aptr.expired()) { // 监视shared_ptr 的生命周期
+//             auto ptr = aptr.lock();
+//             ptr->Print();
+//         }
+//     }
+// };
+// int main() {
+//     auto aaptr = std::make_shared<A>();
+//     auto bbptr = std::make_shared<B>();
+//     std::weak_ptr<A> wpa(aaptr);
+//     std::weak_ptr<B> wpb(bbptr);
+//     std::cout << "aaptr use count = " << wpa.use_count() << std::endl;
+//     std::cout << "bbptr use count = " << wpb.use_count() << std::endl;
+//     aaptr->bptr = bbptr;
+//     bbptr->aptr = aaptr;
+//     std::cout << "aaptr use count = " << wpa.use_count() << std::endl;
+//     std::cout << "bbptr use count = " << wpb.use_count() << std::endl;
+//     bbptr->PrintA();
+//     return 0;
+// }
 // #define GUARD(P) std::shared ptr<void> p##p(p[](void*p)(GetHandle()->Release(p);l);
 // void* p= GetHandle()->Create();
 // GUARD(p);// 安全
+
+
+class Test
+{
+    int a;
+    inline void print()
+    {
+        std::cout << a << std::endl;
+    }
+};
+
+struct Test2
+{
+    int a;
+    void a_add()
+    {
+        a++;
+    }
+private:
+    int b;
+    void b_add()
+    {
+        b++;
+    }
+};
+
+
+int main()
+{
+    Test test;
+    std::cout << sizeof(test) << std::endl;
+    Test2 test2;
+    test2.a_add();
+    static int foo;
+    extern int foo;
+}
