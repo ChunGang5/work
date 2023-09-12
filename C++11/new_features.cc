@@ -252,5 +252,5 @@ int main()
     Test2 test2;
     test2.a_add();
     static int foo;
-    extern int foo;
+    //extern int foo;
 }
