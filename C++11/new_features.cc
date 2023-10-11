@@ -220,37 +220,51 @@
 // GUARD(p);// 安全
 
 
-class Test
-{
-    int a;
-    inline void print()
-    {
-        std::cout << a << std::endl;
-    }
-};
+// class Test
+// {
+//     int a;
+//     inline void print()
+//     {
+//         std::cout << a << std::endl;
+//     }
+// };
 
-struct Test2
-{
-    int a;
-    void a_add()
-    {
-        a++;
-    }
-private:
-    int b;
-    void b_add()
-    {
-        b++;
-    }
-};
+// struct Test2
+// {
+//     int a;
+//     void a_add()
+//     {
+//         a++;
+//     }
+// private:
+//     int b;
+//     void b_add()
+//     {
+//         b++;
+//     }
+// };
 
+
+// int main()
+// {
+//     Test test;
+//     std::cout << sizeof(test) << std::endl;
+//     Test2 test2;
+//     test2.a_add();
+//     static int foo;
+//     extern int foo;
+// }
 
 int main()
 {
-    Test test;
-    std::cout << sizeof(test) << std::endl;
-    Test2 test2;
-    test2.a_add();
-    static int foo;
-    //extern int foo;
+    int a = 1, b = 0;
+    decltype(a + b) c;
+    decltype(a += b) d = c;
+    //d                  = 20;
+    std::cout << "c = " << c << std::endl;
+    int e = 0;
+    int &f = e;
+    f      = 10;
+    std::cout << "e = " << e << std::endl;
+    return 0;
 }
