@@ -6,13 +6,13 @@
  * @date 2023-03-29 20:54:54
  */
 
+#include <functional>
 #include <iostream>
+#include <map>
 #include <string>
 #include <vector>
-#include <map>
-#include <functional>
 
-//using namespace std;
+// using namespace std;
 
 // int main()
 // {
@@ -36,7 +36,6 @@
 //     }
 //     return 0;
 // }
-
 
 // #include <iostream>
 // #include <string>
@@ -128,9 +127,9 @@
 //     std::cout << i << j << std::endl;
 // }
 
+#include <algorithm>
 #include <iostream>
 #include <vector>
-#include <algorithm>
 
 // 仿函数类
 // struct GreaterThan {
@@ -219,7 +218,6 @@
 // void* p= GetHandle()->Create();
 // GUARD(p);// 安全
 
-
 // class Test
 // {
 //     int a;
@@ -244,7 +242,6 @@
 //     }
 // };
 
-
 // int main()
 // {
 //     Test test;
@@ -255,16 +252,104 @@
 //     extern int foo;
 // }
 
+// int main()
+// {
+//     int a = 1, b = 0;
+//     decltype(a + b) c;
+//     decltype(a += b) d = c;
+//     //d                  = 20;
+//     std::cout << "c = " << c << std::endl;
+//     int e = 0;
+//     int &f = e;
+//     int *p = nullptr;
+//     f      = 10;
+//     std::cout << "e = " << e << std::endl;
+//     return 0;
+// }
+
+// class A
+// {
+// public:
+//     A():m_ptr(new int(0))
+//     {
+//         std::cout << "construct" << std::endl;
+//     }
+//     // A(const A& a):m_ptr(new int(5))
+//     // {
+//     //     std::cout << "copy construct" << std::endl;
+//     // }
+//     A(A &&a):m_ptr(a.m_ptr)
+//     {
+//         a.m_ptr = nullptr;
+//         std::cout << "move construct" << std::endl;
+//     }
+//     ~A()
+//     {
+//         std::cout << "destruct" << std::endl;
+//         delete m_ptr;
+//     }
+// private:
+//     int* m_ptr;
+// };
+
+// A Get(bool flag)
+// {
+//     A a;
+//     A b;
+//     if(flag)
+//     {
+//         return a;
+//     }
+//     else
+//     {
+//         return b;
+//     }
+// }
+// int main()
+// {
+//     A a = Get(false);
+//     return 0;
+// }
+
+class A
+{
+public:
+    A(int size) : size_(size)
+    {
+        data_ = new int[size];
+        std::cout << "construct1" << std::endl;
+    }
+    A()
+    {
+        std::cout << "construct2" << std::endl;
+    }
+    A(const A& a)
+    {
+        size_ = a.size_;
+        data_ = new int[size_];
+        std::cout << "copy " << std::endl;
+    }
+    A(A&& a)
+    {
+        this->data_ = a.data_;
+        a.data_     = nullptr;
+        std::cout << "move " << std::endl;
+    }
+    ~A()
+    {
+        if (data_ != nullptr)
+        {
+            delete[] data_;
+        }
+        std::cout << "destruct1" << std::endl;
+    }
+    int* data_;
+    int  size_;
+};
 int main()
 {
-    int a = 1, b = 0;
-    decltype(a + b) c;
-    decltype(a += b) d = c;
-    //d                  = 20;
-    std::cout << "c = " << c << std::endl;
-    int e = 0;
-    int &f = e;
-    f      = 10;
-    std::cout << "e = " << e << std::endl;
+    A a(10);
+    A b = a;
+    A c = std::move(a);  // 调用移动构造函数
     return 0;
 }
