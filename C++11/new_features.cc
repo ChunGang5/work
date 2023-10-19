@@ -311,45 +311,81 @@
 //     return 0;
 // }
 
-class A
+// class A
+// {
+// public:
+//     A(int size) : size_(size)
+//     {
+//         data_ = new int[size];
+//         std::cout << "construct1" << std::endl;
+//     }
+//     A()
+//     {
+//         std::cout << "construct2" << std::endl;
+//     }
+//     A(const A& a)
+//     {
+//         size_ = a.size_;
+//         data_ = new int[size_];
+//         std::cout << "copy " << std::endl;
+//     }
+//     A(A&& a)
+//     {
+//         this->data_ = a.data_;
+//         a.data_     = nullptr;
+//         std::cout << "move " << std::endl;
+//     }
+//     void print()
+//     {
+//         std::cout << "date = " << *data_ << std::endl;
+//     }
+//     ~A()
+//     {
+//         if (data_ != nullptr)
+//         {
+//             delete[] data_;
+//         }
+//         std::cout << "destruct1" << std::endl;
+//     }
+//     int* data_;
+//     int  size_;
+// };
+// int main()
+// {
+//     A a(10);
+//     A b = a;
+//     A c = std::move(a);  // 调用移动构造函数
+//     // 转移了所有权，
+//     a.print();
+//     return 0;
+// }
+
+void PrintV(int &t)
 {
-public:
-    A(int size) : size_(size)
-    {
-        data_ = new int[size];
-        std::cout << "construct1" << std::endl;
-    }
-    A()
-    {
-        std::cout << "construct2" << std::endl;
-    }
-    A(const A& a)
-    {
-        size_ = a.size_;
-        data_ = new int[size_];
-        std::cout << "copy " << std::endl;
-    }
-    A(A&& a)
-    {
-        this->data_ = a.data_;
-        a.data_     = nullptr;
-        std::cout << "move " << std::endl;
-    }
-    ~A()
-    {
-        if (data_ != nullptr)
-        {
-            delete[] data_;
-        }
-        std::cout << "destruct1" << std::endl;
-    }
-    int* data_;
-    int  size_;
-};
+    std::cout << "lvalue" << std::endl;
+}
+void PrintV(int &&t)
+{
+    std::cout << "rvalue" << std::endl;
+}
+template <typename T>
+void Test(T &&t)
+{
+    PrintV(t);
+    PrintV(std::forward<T>(t));
+    PrintV(std::move(t));
+}
 int main()
 {
-    A a(10);
-    A b = a;
-    A c = std::move(a);  // 调用移动构造函数
+    Test(1);  // lvalue rvalue rvalue
+    int a = 1;
+    int &c = a;
+    Test(a);                        // lvalue lvalue rvalue
+    auto b = std::forward<int>(a);
+    std::cout << "a type: " << typeid(a).name() << std::endl;
+    std::cout << "b type: " << typeid(b).name() << std::endl;
+    Test(std::forward<int>(a));     // lvalue rvalue rvalue
+    Test(std::forward<int &>(a));   // lvalue lvalue rvalue
+    Test(std::forward<int &&>(a));  // lvalue rvalue rvalue
     return 0;
 }
