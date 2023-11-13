@@ -360,32 +360,69 @@
 //     return 0;
 // }
 
-void PrintV(int &t)
-{
-    std::cout << "lvalue" << std::endl;
-}
-void PrintV(int &&t)
-{
-    std::cout << "rvalue" << std::endl;
-}
-template <typename T>
-void Test(T &&t)
-{
-    PrintV(t);
-    PrintV(std::forward<T>(t));
-    PrintV(std::move(t));
-}
-int main()
-{
-    Test(1);  // lvalue rvalue rvalue
-    int a = 1;
-    int &c = a;
-    Test(a);                        // lvalue lvalue rvalue
-    auto b = std::forward<int>(a);
-    std::cout << "a type: " << typeid(a).name() << std::endl;
-    std::cout << "b type: " << typeid(b).name() << std::endl;
-    Test(std::forward<int>(a));     // lvalue rvalue rvalue
-    Test(std::forward<int &>(a));   // lvalue lvalue rvalue
-    Test(std::forward<int &&>(a));  // lvalue rvalue rvalue
+// void PrintV(int &t)
+// {
+//     std::cout << "lvalue" << std::endl;
+// }
+// void PrintV(int &&t)
+// {
+//     std::cout << "rvalue" << std::endl;
+// }
+// template <typename T>
+// void Test(T &&t)
+// {
+//     PrintV(t);
+//     PrintV(std::forward<T>(t));
+//     PrintV(std::move(t));
+// }
+// int main()
+// {
+//     Test(1);  // lvalue rvalue rvalue
+//     int a = 1;
+//     int &c = a;
+//     Test(a);                        // lvalue lvalue rvalue
+//     auto b = std::forward<int>(a);
+//     std::cout << "a type: " << typeid(a).name() << std::endl;
+//     std::cout << "b type: " << typeid(b).name() << std::endl;
+//     Test(std::forward<int>(a));     // lvalue rvalue rvalue
+//     Test(std::forward<int &>(a));   // lvalue lvalue rvalue
+//     Test(std::forward<int &&>(a));  // lvalue rvalue rvalue
+//     return 0;
+// }
+
+
+// 计时器
+#include <iostream>
+#include <chrono>
+#include <thread>
+
+int main() {
+    // 设置要运行的循环时间（以秒为单位）
+    int run_time_seconds = 5;  // 5秒
+
+    // 获取当前时间点
+    auto start_time = std::chrono::high_resolution_clock::now();
+
+    while (true) {
+        // 在此处执行循环的工作
+
+        // 获取当前时间点
+        auto current_time = std::chrono::high_resolution_clock::now();
+
+        // 计算经过的时间（以秒为单位）
+        std::chrono::duration<double> elapsed_seconds = current_time - start_time;
+
+        // 如果经过的时间超过了设定的运行时间，退出循环
+        if (elapsed_seconds.count() >= run_time_seconds) {
+            break;
+        }
+
+        // 可以添加适当的睡眠来降低循环执行速度，以减轻CPU负载
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    }
+
+    // 循环结束后执行其他操作
+    std::cout << "Loop has run for " << run_time_seconds << " seconds and is now stopping." << std::endl;
+
     return 0;
 }
