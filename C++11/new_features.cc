@@ -11,6 +11,7 @@
 #include <map>
 #include <string>
 #include <vector>
+#include <chrono>
 
 using namespace std;
 
@@ -438,6 +439,14 @@ R func2(U val)
     cout << "func2 val type = " << typeid(val).name() << " val = " << val << endl;
     return val;
 }
+
+template <typename R , typename U>
+R func3(U val)
+{
+    cout << "func2 val type = " << typeid(val).name() << " val = " << val << endl;
+    return val;
+}
+
 int main()
 {
     cout << func1<int, double>(99.9) << endl;     // 99
@@ -448,5 +457,15 @@ int main()
     cout << func1<double, double>(99.9) << endl;  // 99.9
     cout << func2<double>(99.9) << endl;          // 99.9
     cout << func2<int>(99.9) << endl;             // 99
+    auto i = func3<int>(99.9);
+    cout << "i type = " << typeid(i).name() << " i = " << i << endl;  // 99.9
     return 0;
 }
+
+// int main()
+// {
+//     auto cur_time = std::chrono::high_resolution_clock::now();
+//     auto timestamp = std::chrono::high_resolution_clock::to_time_t(cur_time);
+//     std::cout << "time = " << std::ctime(&timestamp) << std::endl;
+//     return 0;
+// }
