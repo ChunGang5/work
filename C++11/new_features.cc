@@ -12,6 +12,7 @@
 #include <string>
 #include <vector>
 #include <chrono>
+#include<thread>
 
 using namespace std;
 
@@ -427,45 +428,174 @@ using namespace std;
 //     return 0;
 // }
 
-template <typename R, typename U = int>
-R func1(U val)
-{
-    cout << "func1 val type = " << typeid(val).name() << " val = " << val << endl;
-    return val;
-}
-template <typename R = int, typename U>
-R func2(U val)
-{
-    cout << "func2 val type = " << typeid(val).name() << " val = " << val << endl;
-    return val;
-}
+// template <typename R, typename U = int>
+// R func1(U val)
+// {
+//     cout << "func1 val type = " << typeid(val).name() << " val = " << val << endl;
+//     return val;
+// }
+// template <typename R = int, typename U>
+// R func2(U val)
+// {
+//     cout << "func2 val type = " << typeid(val).name() << " val = " << val << endl;
+//     return val;
+// }
 
-template <typename R , typename U>
-R func3(U val)
-{
-    cout << "func2 val type = " << typeid(val).name() << " val = " << val << endl;
-    return val;
-}
+// template <typename R , typename U>
+// R func3(U val)
+// {
+//     cout << "func2 val type = " << typeid(val).name() << " val = " << val << endl;
+//     return val;
+// }
 
-int main()
-{
-    cout << func1<int, double>(99.9) << endl;     // 99
-    cout << func1<double, double>(99.9) << endl;  // 99.9
-    cout << func1<double>(99.9) << endl;          // 99.9
-    cout << func1<int>(99.9) << endl;             // 99
-    cout << func2<int, double>(99.9) << endl;     // 99
-    cout << func1<double, double>(99.9) << endl;  // 99.9
-    cout << func2<double>(99.9) << endl;          // 99.9
-    cout << func2<int>(99.9) << endl;             // 99
-    auto i = func3<int>(99.9);
-    cout << "i type = " << typeid(i).name() << " i = " << i << endl;  // 99.9
-    return 0;
-}
+// int main()
+// {
+//     cout << func1<int, double>(99.9) << endl;     // 99
+//     cout << func1<double, double>(99.9) << endl;  // 99.9
+//     cout << func1<double>(99.9) << endl;          // 99.9
+//     cout << func1<int>(99.9) << endl;             // 99
+//     cout << func2<int, double>(99.9) << endl;     // 99
+//     cout << func1<double, double>(99.9) << endl;  // 99.9
+//     cout << func2<double>(99.9) << endl;          // 99.9
+//     cout << func2<int>(99.9) << endl;             // 99
+//     auto i = func3<int>(99.9);
+//     cout << "i type = " << typeid(i).name() << " i = " << i << endl;  // 99.9
+//     return 0;
+// }
 
+#include<ratio>
+#include<ctime>
+#include<iomanip>
 // int main()
 // {
 //     auto cur_time = std::chrono::high_resolution_clock::now();
 //     auto timestamp = std::chrono::high_resolution_clock::to_time_t(cur_time);
+//     std::chrono::seconds(1);
 //     std::cout << "time = " << std::ctime(&timestamp) << std::endl;
+//     std::chrono::milliseconds ms{3};
+//     std::chrono::microseconds us{200};
+//     std::cout << "ms:" << ms.count() << "us=" << us.count() << endl;
+//     std::chrono::microseconds t = ms - us;
+//     std::chrono::duration_cast<std::chrono::microseconds>(ms - us);
+//     std::cout << "t = " << t.count() << endl;
+
+//     typedef std::chrono::duration<int, std::ratio<60 * 60 * 24>> days_type;
+//     std::chrono::time_point<std::chrono::system_clock, days_type> today =
+//         std::chrono::time_point_cast<days_type>(std::chrono::system_clock::now());
+//     std::time_t today_t = std::chrono::system_clock::to_time_t(today);
+//     std::cout << "today = " << today.time_since_epoch().count() << " time = "<< std::put_time(std::localtime(&today_t), "%F %T")<< endl;
 //     return 0;
 // }
+
+
+// class Timer
+// {
+// public:
+//     Timer() : m_begin_(std::chrono::high_resolution_clock::now())
+//     {
+//         // auto timestamp = std::chrono::high_resolution_clock::to_time_t(m_begin_);
+//         // std::cout << "time = " << std::ctime(&timestamp) << std::endl;
+//     }
+//     ~Timer(){}
+//     void reset()
+//     {
+//         m_begin_ = std::chrono::high_resolution_clock::now();
+//     }
+//     template<typename Duration=std::chrono::milliseconds>
+//     int elapsed() const
+//     {
+//         return std::chrono::duration_cast<Duration>(std::chrono::high_resolution_clock::now() - m_begin_).count();
+//     }
+
+//     int64_t elapsed_micro()const
+//     {
+//         return elapsed<std::chrono::milliseconds>();
+//     }
+
+//     int64_t elapsed_nano()const
+//     {
+//         return elapsed<std::chrono::microseconds>();
+//     }
+
+// private:
+//     std::chrono::time_point<std::chrono::high_resolution_clock> m_begin_;
+// };
+
+// void func()
+// {
+//     std::cout << "timer" << std::endl;
+//     //std::this_thread::sleep_for(std::chrono::milliseconds(1));
+// }
+
+// int main()
+// {
+//     Timer t;
+//     func();
+//     std::cout << t.elapsed() << std::endl;
+//     std::cout << t.elapsed_nano() << std::endl;
+//     return 0;
+// }
+
+
+// int main()
+// {
+//     std::vector<int> v;
+//     int              a = 10;
+//     v.emplace_back(a);
+//     for (auto i: v)
+//     {
+//         std::cout << "value = " << i << std::endl;
+//     }
+//     return 0;
+// }
+
+class MyClass {
+public:
+    // 一个较为复杂的构造函数
+    MyClass(int value) : value_(value), data_(new int[10000]) {
+        // 模拟一些复杂的对象构造逻辑
+        for (int i = 0; i < 10000; ++i) {
+            data_[i] = i;
+        }
+    }
+
+    // 移动构造函数
+    MyClass(MyClass&& other) noexcept : value_(other.value_), data_(other.data_) {
+        other.data_ = nullptr;
+    }
+
+    ~MyClass() {
+        delete[] data_;
+    }
+
+private:
+    int value_;
+    int* data_;
+};
+
+int main() {
+    const int numElements = 100000;
+
+    // 使用 push_back
+    auto startPushBack = std::chrono::high_resolution_clock::now();
+    std::vector<MyClass> vectorPushBack;
+    for (int i = 0; i < numElements; ++i) {
+        vectorPushBack.push_back(MyClass(i));
+    }
+    auto endPushBack = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> durationPushBack = endPushBack - startPushBack;
+
+    // 使用 emplace_back
+    auto startEmplaceBack = std::chrono::high_resolution_clock::now();
+    std::vector<MyClass> vectorEmplaceBack;
+    for (int i = 0; i < numElements; ++i) {
+        vectorEmplaceBack.emplace_back(i);
+    }
+    auto endEmplaceBack = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> durationEmplaceBack = endEmplaceBack - startEmplaceBack;
+
+    std::cout << "push_back duration: " << durationPushBack.count() << " seconds\n";
+    std::cout << "emplace_back duration: " << durationEmplaceBack.count() << " seconds\n";
+
+    return 0;
+}
