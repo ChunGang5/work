@@ -549,53 +549,76 @@ using namespace std;
 //     return 0;
 // }
 
-class MyClass {
+// class MyClass {
+// public:
+//     // 一个较为复杂的构造函数
+//     MyClass(int value) : value_(value), data_(new int[10000]) {
+//         // 模拟一些复杂的对象构造逻辑
+//         for (int i = 0; i < 10000; ++i) {
+//             data_[i] = i;
+//         }
+//     }
+
+//     // 移动构造函数
+//     MyClass(MyClass&& other) noexcept : value_(other.value_), data_(other.data_) {
+//         other.data_ = nullptr;
+//     }
+
+//     ~MyClass() {
+//         delete[] data_;
+//     }
+
+// private:
+//     int value_;
+//     int* data_;
+// };
+
+// int main() {
+//     const int numElements = 100000;
+
+//     // 使用 push_back
+//     auto startPushBack = std::chrono::high_resolution_clock::now();
+//     std::vector<MyClass> vectorPushBack;
+//     for (int i = 0; i < numElements; ++i) {
+//         vectorPushBack.push_back(MyClass(i));
+//     }
+//     auto endPushBack = std::chrono::high_resolution_clock::now();
+//     std::chrono::duration<double> durationPushBack = endPushBack - startPushBack;
+
+//     // 使用 emplace_back
+//     auto startEmplaceBack = std::chrono::high_resolution_clock::now();
+//     std::vector<MyClass> vectorEmplaceBack;
+//     for (int i = 0; i < numElements; ++i) {
+//         vectorEmplaceBack.emplace_back(i);
+//     }
+//     auto endEmplaceBack = std::chrono::high_resolution_clock::now();
+//     std::chrono::duration<double> durationEmplaceBack = endEmplaceBack - startEmplaceBack;
+
+//     std::cout << "push_back duration: " << durationPushBack.count() << " seconds\n";
+//     std::cout << "emplace_back duration: " << durationEmplaceBack.count() << " seconds\n";
+
+//     return 0;
+// }
+
+class Foo
+{
 public:
-    // 一个较为复杂的构造函数
-    MyClass(int value) : value_(value), data_(new int[10000]) {
-        // 模拟一些复杂的对象构造逻辑
-        for (int i = 0; i < 10000; ++i) {
-            data_[i] = i;
-        }
-    }
+    int val;
+    Foo *pnext;
 
-    // 移动构造函数
-    MyClass(MyClass&& other) noexcept : value_(other.value_), data_(other.data_) {
-        other.data_ = nullptr;
-    }
-
-    ~MyClass() {
-        delete[] data_;
-    }
-
-private:
-    int value_;
-    int* data_;
 };
 
-int main() {
-    const int numElements = 100000;
-
-    // 使用 push_back
-    auto startPushBack = std::chrono::high_resolution_clock::now();
-    std::vector<MyClass> vectorPushBack;
-    for (int i = 0; i < numElements; ++i) {
-        vectorPushBack.push_back(MyClass(i));
+int main()
+{
+    Foo bar;
+    Foo bar2 = Foo();
+    if(bar.val)
+    {
+        cout << "val" << endl;
     }
-    auto endPushBack = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> durationPushBack = endPushBack - startPushBack;
-
-    // 使用 emplace_back
-    auto startEmplaceBack = std::chrono::high_resolution_clock::now();
-    std::vector<MyClass> vectorEmplaceBack;
-    for (int i = 0; i < numElements; ++i) {
-        vectorEmplaceBack.emplace_back(i);
+    if(bar.pnext)
+    {
+        cout << "pnext" << endl;
     }
-    auto endEmplaceBack = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> durationEmplaceBack = endEmplaceBack - startEmplaceBack;
-
-    std::cout << "push_back duration: " << durationPushBack.count() << " seconds\n";
-    std::cout << "emplace_back duration: " << durationEmplaceBack.count() << " seconds\n";
-
     return 0;
 }
