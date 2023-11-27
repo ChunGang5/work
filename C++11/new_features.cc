@@ -12,7 +12,7 @@
 #include <string>
 #include <vector>
 #include <chrono>
-#include<thread>
+#include <thread>
 
 using namespace std;
 
@@ -600,28 +600,131 @@ using namespace std;
 //     return 0;
 // }
 
-class Foo
-{
-public:
-    int val;
-    Foo *pnext;
+// class Foo
+// {
+// public:
+//     int val;
+//     Foo *pnext;
 
-};
+// };
 
-int main()
-{
-    Foo bar;
-    Foo bar2 = Foo();
-    if(bar.val)
-    {
-        cout << "val" << endl;
-    }
-    if(bar.pnext)
-    {
-        cout << "pnext" << endl;
-    }
-    return 0;
+// int main()
+// {
+//     Foo bar;
+//     Foo bar2 = Foo();
+//     if(bar.val)
+//     {
+//         cout << "val" << endl;
+//     }
+//     if(bar.pnext)
+//     {
+//         cout << "pnext" << endl;
+//     }
+//     return 0;
+// }
+
+// class Shape
+// {
+// public:
+//     virtual void test() = 0;
+//     int          test2();
+// };
+
+// int main()
+// {
+//     int arr[5] = {1, 2, 3, 4, 5};
+//     cout << *(arr + 1) << endl;
+//     cout << &arr << endl;
+//     cout << &arr+1 << endl;
+//     int* a = &arr[0];
+//     int  b = 0;
+//     cout << sizeof(a) << endl;
+//     cout << sizeof(b) << endl;
+//     char c[] = {'a','b','c'};
+//     char d[] = {"abc"};
+//     cout << sizeof(c) << endl;
+//     cout << sizeof(d) << endl;
+//     //Shape sp; 抽象类不允许实例化
+//     return 0;
+// }
+
+// #include<cstring>
+// struct Data
+// {
+//     int a;
+//     char* c;
+//     Data(int i, const char* c_):a(i)
+//     {
+//         c = new char[std::strlen(c) + 1];
+//         std::strcpy(c, c_);
+//     }
+// };
+// class A
+// {
+// public:
+//     void foo(int& a)
+//     {
+//         cout << a << endl;
+//     }
+//     void foo(int&& a)
+//     {
+//         cout << "rValue reference "<< a << endl;
+//     }
+//     Data&& test()
+//     {
+//         Data b(1, "cas");
+//         //return std::move(b);
+//         return b;
+//     }
+// private:
+//     int data;
+// };
+
+// int main()
+// {
+//     vector<int> arr;
+//     A           a;
+//     int         data = 1;
+//     a.foo(data);
+//     a.foo(std::move(data));
+//     //Data c = a.test();
+//     cout << a.test().a << endl;
+//     return 0;
+// }
+
+// void noexceptFunction() noexcept {
+//     //throw std::runtime_error("This is an exception inside a noexcept function.");
+//     int arr[5] = {1, 2, 3, 4, 5};
+
+//     // 访问越界数组元素
+//     std::cout << arr[11] << std::endl;
+// }
+
+// int main() {
+//     try {
+//         noexceptFunction();
+//     } catch (const std::exception& e) {
+//         std::cerr << "Caught exception: " << e.what() << std::endl;
+//     }
+
+//     return 0;
+// }
+
+template <typename T>
+
+// 基本情况的模板函数
+void print(const T& arg) {
+    std::cout << std::endl;
 }
 
+// 可变参数模板的递归函数
+template <typename T, typename... Args>
+void print(T first, Args... args) {
+    std::cout << first << " ";
+    print(args...);
+}
 
-
+int main() {
+    print(1, 2.5, "Hello", 'a');
+    return 0;
+}
