@@ -41,7 +41,7 @@ public:
         m_notEmpty.notify_one();
     }
 
-    void task(T& t)
+    void take(T& t)
     {
         std::unique_lock<std::mutex> locker(m_mutex);
         m_notEmpty.wait(locker, [this] { return m_needStop || notEmpty(); });
