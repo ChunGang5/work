@@ -710,21 +710,28 @@ using namespace std;
 //     return 0;
 // }
 
-template <typename T>
+// template <typename T>
 
-// 基本情况的模板函数
-void print(const T& arg) {
-    std::cout << std::endl;
-}
+// // 基本情况的模板函数
+// void print(const T& arg) {
+//     std::cout << std::endl;
+// }
 
-// 可变参数模板的递归函数
-template <typename T, typename... Args>
-void print(T first, Args... args) {
-    std::cout << first << " ";
-    print(args...);
-}
+// // 可变参数模板的递归函数
+// template <typename T, typename... Args>
+// void print(T first, Args... args) {
+//     std::cout << first << " ";
+//     print(args...);
+// }
 
-int main() {
-    print(1, 2.5, "Hello", 'a');
-    return 0;
+// int main() {
+//     print(1, 2.5, "Hello", 'a');
+//     return 0;
+// }
+
+// 在c++中可以不写return 0, 不同于C，C++会默认补上return 0
+int main()
+{
+    cout << "test" << endl;
+    exit(0);
 }

@@ -45,6 +45,10 @@ public:
     {
         std::unique_lock<std::mutex> locker(m_mutex);
         m_notEmpty.wait(locker, [this] { return m_needStop || notEmpty(); });
+        if(m_needStop)
+        {
+            return;
+        }
         t = m_queue.front();
         m_queue.pop_front();
         m_notEmpty.notify_one();
