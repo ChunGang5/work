@@ -730,8 +730,29 @@ using namespace std;
 // }
 
 // 在c++中可以不写return 0, 不同于C，C++会默认补上return 0
+#include<utility>
+template<typename T1,typename T2>
+std::ostream& operator<<(std::ostream& strm, const std::pair<T1,T2>& p)
+{
+    return strm << "[" << p.first << ", " << p.second << "]";
+}
 int main()
 {
     cout << "test" << endl;
+    pair<int, float> p1;
+    p1.first = 1;
+    p1.second = 2.1;
+    std::cout << "p1 = " << get<0>(p1) << std::endl;
+    pair<int,std::string> p2 = make_pair(1, "dswq");
+    std::cout << p2.second << std::endl;
+    std::cout << p2 << std::endl;
+    typedef pair<int, double> typeIntDoublePair;
+    typeIntDoublePair         p3(10, 432.4);
+    std::cout << std::tuple_size<typeIntDoublePair>::value << std::endl;
+    //std::tuple<typeIntDoublePair> tuple1(p3);
+    std::tuple<int,string> tuple1(1,"dwq");
+    std::tuple_element<0, decltype(tuple1)>::type intValue = std::get<0>(tuple1);
+    std::cout << typeid(intValue).name() << std::endl;
+    //std::cout << std::tuple_element<0, typeIntDoublePair>::type << std::endl;
     exit(0);
 }
