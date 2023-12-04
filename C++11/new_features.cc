@@ -6,13 +6,13 @@
  * @date 2023-03-29 20:54:54
  */
 
+#include <chrono>
 #include <functional>
 #include <iostream>
 #include <map>
 #include <string>
-#include <vector>
-#include <chrono>
 #include <thread>
+#include <vector>
 
 using namespace std;
 
@@ -463,9 +463,9 @@ using namespace std;
 //     return 0;
 // }
 
-#include<ratio>
-#include<ctime>
-#include<iomanip>
+#include <ctime>
+#include <iomanip>
+#include <ratio>
 // int main()
 // {
 //     auto cur_time = std::chrono::high_resolution_clock::now();
@@ -483,10 +483,9 @@ using namespace std;
 //     std::chrono::time_point<std::chrono::system_clock, days_type> today =
 //         std::chrono::time_point_cast<days_type>(std::chrono::system_clock::now());
 //     std::time_t today_t = std::chrono::system_clock::to_time_t(today);
-//     std::cout << "today = " << today.time_since_epoch().count() << " time = "<< std::put_time(std::localtime(&today_t), "%F %T")<< endl;
-//     return 0;
+//     std::cout << "today = " << today.time_since_epoch().count() << " time = "<<
+//     std::put_time(std::localtime(&today_t), "%F %T")<< endl; return 0;
 // }
-
 
 // class Timer
 // {
@@ -535,7 +534,6 @@ using namespace std;
 //     std::cout << t.elapsed_nano() << std::endl;
 //     return 0;
 // }
-
 
 // int main()
 // {
@@ -730,29 +728,133 @@ using namespace std;
 // }
 
 // 在c++中可以不写return 0, 不同于C，C++会默认补上return 0
-#include<utility>
-template<typename T1,typename T2>
-std::ostream& operator<<(std::ostream& strm, const std::pair<T1,T2>& p)
-{
-    return strm << "[" << p.first << ", " << p.second << "]";
+// #include<utility>
+// template<typename T1,typename T2>
+// std::ostream& operator<<(std::ostream& strm, const std::pair<T1,T2>& p)
+// {
+//     return strm << "[" << p.first << ", " << p.second << "]";
+// }
+// //void f(std::pair<int, double>);
+// int main()
+// {
+//     cout << "test" << endl;
+//     pair<int, float> p1;
+//     p1.first = 1;
+//     p1.second = 2.1;
+//     std::cout << "p1 = " << get<0>(p1) << std::endl;
+//     pair<int,std::string> p2 = make_pair(1, "dswq");
+//     std::cout << p2.second << std::endl;
+//     std::cout << p2 << std::endl;
+//     typedef pair<int, double> typeIntDoublePair;
+//     typeIntDoublePair         p3(10, 432.4);
+//     std::cout << std::tuple_size<typeIntDoublePair>::value << std::endl;
+//     //std::tuple<typeIntDoublePair> tuple1(p3);
+//     std::tuple<int,string> tuple1(1,"dwq");
+//     std::tuple_element<0, decltype(tuple1)>::type intValue = std::get<0>(tuple1);
+//     std::cout << typeid(intValue).name() << std::endl;
+//     //std::cout << std::tuple_element<0, typeIntDoublePair>::type << std::endl;
+//     //f({3, 45.6});
+//     std::tuple<int, double, std::string> t1(1, 1.2, "wqeqe");
+//     std::cout << std::get<0>(t1) << std::endl;
+//     std::string s1="s1";
+//     std::string s2 = "s2";
+//     auto t2 = tie(s1, s2);
+//     using firstType = std::tuple_element<0, decltype(t2)>::type;
+//     std::cout << typeid(firstType).name() << std::endl;
+//     exit(0);
+// }
+
+// 模板递归计算阶乘
+// template <int N>
+// struct Factorial {
+//     static const int value = N * Factorial<N - 1>::value;
+// };
+
+// // 特化：定义阶乘的基本情况
+// template <>
+// struct Factorial<0> {
+//     static const int value = 1;
+// };
+
+// template<typename T>
+// void print(const T& t)
+// {
+//     std::cout << "t = " << t << std::endl;
+// }
+// template <typename T, typename... Args>
+// void print(T t, Args... args)
+// {
+//     std::cout << "t = " << t << std::endl;
+//     print(args...);
+// }
+
+// int main() {
+//     // 在编译时计算阶乘
+//     constexpr int result = Factorial<5>::value;
+
+//     std::cout << "Factorial of 5: " << result << std::endl;
+//     std::tuple<int, int> t = {1, 2};
+//     print(1,2,3);
+//     return 0;
+// }
+
+// #include <iostream>
+// #include <tuple>
+
+// // helper: print elements with index IDX and higher of tuple t having MAX elements
+// template <int IDX, int MAX, typename... Args>
+// struct PRINT_TUPLE
+// {
+//     static void print(std::ostream& strm, const std::tuple<Args...>& t)
+//     {
+//         strm << std::get<IDX>(t) << (IDX + 1 == MAX ? "" : ",");
+//         PRINT_TUPLE<IDX + 1, MAX, Args...>::print(strm, t);
+//     }
+// };
+
+// // partial specialization to end the recursion
+// template <int MAX, typename... Args>
+// struct PRINT_TUPLE<MAX, MAX, Args...>
+// {
+//     static void print(std::ostream& strm, const std::tuple<Args...>& t) {}
+// };
+
+// // output operator for tuples
+// template <typename... Args>
+// std::ostream& operator<<(std::ostream& strm, const std::tuple<Args...>& t)
+// {
+//     strm << "[";
+//     PRINT_TUPLE<0, sizeof...(Args), Args...>::print(strm, t);
+//     return strm << "]";
+// }
+
+// int main()
+// {
+//     tuple<int, float, std::string> t(77, 1.1, "more light");
+//     cout << "io: " << t << endl;
+// }
+
+
+#include <iostream>
+#include <limits>
+
+template <typename T>
+void print_numeric_limits() {
+    std::cout << "Type: " << typeid(T).name() << std::endl;
+    std::cout << "Minimum value: " << std::numeric_limits<T>::min() << std::endl;
+    std::cout << "Maximum value: " << std::numeric_limits<T>::max() << std::endl;
+    std::cout << "Is integer? " << std::numeric_limits<T>::is_integer << std::endl;
+    std::cout << "Is signed? " << std::numeric_limits<T>::is_signed << std::endl;
+    std::cout << "Digits: " << std::numeric_limits<T>::digits << std::endl;
+    std::cout << "Precision: " << std::numeric_limits<T>::digits10 << std::endl;
+    std::cout << "------------------------------------" << std::endl;
 }
-int main()
-{
-    cout << "test" << endl;
-    pair<int, float> p1;
-    p1.first = 1;
-    p1.second = 2.1;
-    std::cout << "p1 = " << get<0>(p1) << std::endl;
-    pair<int,std::string> p2 = make_pair(1, "dswq");
-    std::cout << p2.second << std::endl;
-    std::cout << p2 << std::endl;
-    typedef pair<int, double> typeIntDoublePair;
-    typeIntDoublePair         p3(10, 432.4);
-    std::cout << std::tuple_size<typeIntDoublePair>::value << std::endl;
-    //std::tuple<typeIntDoublePair> tuple1(p3);
-    std::tuple<int,string> tuple1(1,"dwq");
-    std::tuple_element<0, decltype(tuple1)>::type intValue = std::get<0>(tuple1);
-    std::cout << typeid(intValue).name() << std::endl;
-    //std::cout << std::tuple_element<0, typeIntDoublePair>::type << std::endl;
-    exit(0);
+
+int main() {
+    print_numeric_limits<int>();
+    print_numeric_limits<float>();
+    print_numeric_limits<double>();
+    print_numeric_limits<char>();
+
+    return 0;
 }
