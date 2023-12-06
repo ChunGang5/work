@@ -835,26 +835,72 @@ using namespace std;
 // }
 
 
-#include <iostream>
-#include <limits>
+// #include <iostream>
+// #include <limits>
 
+// template <typename T>
+// void print_numeric_limits() {
+//     std::cout << "Type: " << typeid(T).name() << std::endl;
+//     std::cout << "Minimum value: " << std::numeric_limits<T>::min() << std::endl;
+//     std::cout << "Maximum value: " << std::numeric_limits<T>::max() << std::endl;
+//     std::cout << "Is integer? " << std::numeric_limits<T>::is_integer << std::endl;
+//     std::cout << "Is signed? " << std::numeric_limits<T>::is_signed << std::endl;
+//     std::cout << "Digits: " << std::numeric_limits<T>::digits << std::endl;
+//     std::cout << "Precision: " << std::numeric_limits<T>::digits10 << std::endl;
+//     std::cout << "------------------------------------" << std::endl;
+// }
+
+// int main() {
+//     print_numeric_limits<int>();
+//     print_numeric_limits<float>();
+//     print_numeric_limits<double>();
+//     print_numeric_limits<char>();
+
+//     return 0;
+// }
+
+#include <utility>
 template <typename T>
-void print_numeric_limits() {
-    std::cout << "Type: " << typeid(T).name() << std::endl;
-    std::cout << "Minimum value: " << std::numeric_limits<T>::min() << std::endl;
-    std::cout << "Maximum value: " << std::numeric_limits<T>::max() << std::endl;
-    std::cout << "Is integer? " << std::numeric_limits<T>::is_integer << std::endl;
-    std::cout << "Is signed? " << std::numeric_limits<T>::is_signed << std::endl;
-    std::cout << "Digits: " << std::numeric_limits<T>::digits << std::endl;
-    std::cout << "Precision: " << std::numeric_limits<T>::digits10 << std::endl;
-    std::cout << "------------------------------------" << std::endl;
+void print_type()
+{
+    T                           t;
+    decltype(std::declval<T>()) result = std::move(t);
+    //decltype(T()) result;
+    //auto result = std::declval<T>();
+    std::cout << "type = " << typeid(result).name() << std::endl;
+    std::cout << "result = " << result << std::endl;
 }
+int main()
+{
+    // using Type1 = std::common_type<int, long, long long>::type;
+    // using Type2 = std::common_type<float, double>::type;
 
-int main() {
-    print_numeric_limits<int>();
-    print_numeric_limits<float>();
-    print_numeric_limits<double>();
-    print_numeric_limits<char>();
-
+    // // 使用 type_info::name()
+    // std::cout << "Common type for int, long, long long: " << typeid(Type1).name() << std::endl;
+    // std::cout << "Common type for float, double: " << typeid(Type2).name() << std::endl;
+    print_type<int>();
     return 0;
 }
+
+// #include <iostream>
+// #include <utility>
+
+// struct Default
+// {
+//     int foo() const { return 1; }
+// };
+
+// struct NonDefault
+// {
+//     NonDefault() = delete;
+//     int foo() const { return 1; }
+// };
+
+// int main()
+// {
+//     decltype(Default().foo()) n1 = 1;                   // type of n1 is int
+// //  decltype(NonDefault().foo()) n2 = n1;               // error: no default constructor
+//     decltype(std::declval<NonDefault>().foo()) n2 = n1; // type of n2 is int
+//     std::cout << "n1 = " << n1 << '\n'
+//               << "n2 = " << n2 << '\n';
+// }
