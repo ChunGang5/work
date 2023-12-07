@@ -859,28 +859,28 @@ using namespace std;
 //     return 0;
 // }
 
-#include <utility>
-template <typename T>
-void print_type()
-{
-    T                           t;
-    decltype(std::declval<T>()) result = std::move(t);
-    //decltype(T()) result;
-    //auto result = std::declval<T>();
-    std::cout << "type = " << typeid(result).name() << std::endl;
-    std::cout << "result = " << result << std::endl;
-}
-int main()
-{
-    // using Type1 = std::common_type<int, long, long long>::type;
-    // using Type2 = std::common_type<float, double>::type;
+// #include <utility>
+// template <typename T>
+// void print_type()
+// {
+//     T                           t;
+//     decltype(std::declval<T>()) result = std::move(t);
+//     //decltype(T()) result;
+//     //auto result = std::declval<T>();
+//     std::cout << "type = " << typeid(result).name() << std::endl;
+//     std::cout << "result = " << result << std::endl;
+// }
+// int main()
+// {
+//     // using Type1 = std::common_type<int, long, long long>::type;
+//     // using Type2 = std::common_type<float, double>::type;
 
-    // // 使用 type_info::name()
-    // std::cout << "Common type for int, long, long long: " << typeid(Type1).name() << std::endl;
-    // std::cout << "Common type for float, double: " << typeid(Type2).name() << std::endl;
-    print_type<int>();
-    return 0;
-}
+//     // // 使用 type_info::name()
+//     // std::cout << "Common type for int, long, long long: " << typeid(Type1).name() << std::endl;
+//     // std::cout << "Common type for float, double: " << typeid(Type2).name() << std::endl;
+//     print_type<int>();
+//     return 0;
+// }
 
 // #include <iostream>
 // #include <utility>
@@ -904,3 +904,98 @@ int main()
 //     std::cout << "n1 = " << n1 << '\n'
 //               << "n2 = " << n2 << '\n';
 // }
+
+// #include <unordered_map>
+// #include <iostream>
+
+// int main() {
+//     std::unordered_map<std::string, std::unordered_map<std::string, std::string>> multi_rule_group_map;
+
+//     // 插入元素
+//     multi_rule_group_map["group1"]["account1"] = "value1";
+//     multi_rule_group_map["group1"]["account2"] = "value1";
+//     multi_rule_group_map["group2"]["account1"] = "value1";
+//     multi_rule_group_map["group2"]["account2"] = "value1";
+
+//     // 打印元素
+//     for (const auto& group_pair : multi_rule_group_map) {
+//         const auto& group_name = group_pair.first;
+//         const auto& inner_map = group_pair.second;
+
+//         std::cout << "Group: " << group_name << std::endl;
+
+//         for (const auto& inner_pair : inner_map) {
+//             const auto& account_name = inner_pair.first;
+//             const auto& value = inner_pair.second;
+
+//             std::cout << "  Account: " << account_name << ", Value: " << value << std::endl;
+//         }
+//     }
+
+//     return 0;
+// }
+
+// #include <iostream>
+// #include <ratio>
+
+// int main() {
+//     // 定义有理数
+//     using MyRatio = std::ratio<5, 3>;
+
+//     // 获取分子和分母
+//     constexpr int numerator = MyRatio::num;  // 分子
+//     constexpr int denominator = MyRatio::den;  // 分母
+
+//     // 输出有理数
+//     std::cout << "MyRatio = " << numerator << "/" << denominator << std::endl;
+
+//     // 编译时计算有理数的乘法
+//     using DoubleRatio = std::ratio_multiply<MyRatio, std::ratio<2, 1>>;
+//     constexpr int doubleNumerator = DoubleRatio::num;
+//     constexpr int doubleDenominator = DoubleRatio::den;
+
+//     std::cout << "DoubleRatio = " << doubleNumerator << "/" << doubleDenominator << std::endl;
+
+//     return 0;
+// }
+
+// #include<deque>
+
+// int main()
+// {
+//     deque<int> dq;
+//     dq.push_back(1);
+// }
+
+#include <iostream>
+#include <unordered_set>
+#include <chrono>
+
+int main() {
+    std::unordered_set<int> mySet;
+
+    // 添加一些元素到 unordered_set 中
+    for (int i = 0; i < 1000000; ++i) {
+        mySet.insert(i);
+    }
+
+    // 要查找的元素
+    int targetElement = 500000;
+
+    // 测量查找时间
+    auto start = std::chrono::high_resolution_clock::now();
+    auto it = mySet.find(targetElement);
+    auto end = std::chrono::high_resolution_clock::now();
+
+    if (it != mySet.end()) {
+        std::cout << "Element found in set." << std::endl;
+    } else {
+        std::cout << "Element not found in set." << std::endl;
+    }
+
+    // 计算并输出查找时间
+    auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start);
+    std::cout << "Time taken for search: " << duration.count() << " nanoseconds" << std::endl;
+
+    return 0;
+}
