@@ -129,7 +129,7 @@ using namespace std;
 //     std::cout << i << j << std::endl;
 // }
 
-#include <algorithm>
+// #include <algorithm>
 #include <iostream>
 #include <vector>
 
@@ -834,7 +834,6 @@ using namespace std;
 //     cout << "io: " << t << endl;
 // }
 
-
 // #include <iostream>
 // #include <limits>
 
@@ -967,35 +966,98 @@ using namespace std;
 //     dq.push_back(1);
 // }
 
-#include <iostream>
-#include <unordered_set>
-#include <chrono>
+// #include <iostream>
+// #include <unordered_set>
+// #include <chrono>
 
-int main() {
-    std::unordered_set<int> mySet;
+// int main() {
+//     std::unordered_set<int> mySet;
 
-    // 添加一些元素到 unordered_set 中
-    for (int i = 0; i < 1000000; ++i) {
-        mySet.insert(i);
+//     // 添加一些元素到 unordered_set 中
+//     for (int i = 0; i < 1000000; ++i) {
+//         mySet.insert(i);
+//     }
+
+//     // 要查找的元素
+//     int targetElement = 500000;
+
+//     // 测量查找时间
+//     auto start = std::chrono::high_resolution_clock::now();
+//     auto it = mySet.find(targetElement);
+//     auto end = std::chrono::high_resolution_clock::now();
+
+//     if (it != mySet.end()) {
+//         std::cout << "Element found in set." << std::endl;
+//     } else {
+//         std::cout << "Element not found in set." << std::endl;
+//     }
+
+//     // 计算并输出查找时间
+//     auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start);
+//     std::cout << "Time taken for search: " << duration.count() << " nanoseconds" << std::endl;
+
+//     return 0;
+// }
+
+// #include <cstring>
+// int main()
+// {
+//     char p[8];
+//     for (int i = 0; i < 8; i++)
+//     {
+//         p[i] = '0' + i;
+//     }
+//     // p[8] = '\0';  // 添加 null 字符
+//     cout << strlen((const char*)p) << endl;
+// }
+
+// #include<vector>
+// int main()
+// {
+//     std::vector<int> v1 = {1, 2, 3, 4, 5};
+//     for (auto it = v1.begin(); it != v1.end(); it++)
+//     {
+//         std::cout << *it << std::endl;
+//     }
+//     std::vector<int>::reverse_iterator it2 = v1.rbegin();
+//     for (; it2 < v1.rend();it2++)
+//     {
+//         std::cout << *it2 << std::endl;
+//     }
+// }
+
+#include <algorithm>
+#include <iterator>
+#include <list>
+// int main()
+// {
+//     vector<string> coll;
+//     copy(istream_iterator<string>(cin), istream_iterator<string>(), back_inserter(coll));
+//     sort(coll.begin(), coll.end());
+//     unique_copy(coll.cbegin(), coll.cend(), ostream_iterator<string>(cout, "\r\n"));
+// }
+
+int main()
+{
+    list<int> coll;
+
+    for (size_t i = 1; i <= 6; i++)
+    {
+        coll.push_front(i);
+        coll.push_back(i);
     }
 
-    // 要查找的元素
-    int targetElement = 500000;
+    cout << "pre: ";
+    copy(coll.cbegin(), coll.cend(), ostream_iterator<int>(cout, " "));
+    cout << endl;
 
-    // 测量查找时间
-    auto start = std::chrono::high_resolution_clock::now();
-    auto it = mySet.find(targetElement);
-    auto end = std::chrono::high_resolution_clock::now();
+    list<int>::const_iterator end = remove(coll.begin(), coll.end(), 3);
+    cout << *end << endl;
 
-    if (it != mySet.end()) {
-        std::cout << "Element found in set." << std::endl;
-    } else {
-        std::cout << "Element not found in set." << std::endl;
-    }
+    copy(coll.cbegin(), end, ostream_iterator<int>(cout, " "));
+    cout << endl;
 
-    // 计算并输出查找时间
-    auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start);
-    std::cout << "Time taken for search: " << duration.count() << " nanoseconds" << std::endl;
-
-    return 0;
+    cout << distance(end, coll.cend()) << endl;
+    //std::cout << std::distance(coll.begin(), coll.end()) << std::endl;
+    coll.remove(1);
 }
