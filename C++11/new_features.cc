@@ -1060,4 +1060,5 @@ int main()
     cout << distance(end, coll.cend()) << endl;
     //std::cout << std::distance(coll.begin(), coll.end()) << std::endl;
     coll.remove(1);
+    coll.remove(2);
 }
