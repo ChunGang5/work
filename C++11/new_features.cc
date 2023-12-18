@@ -1026,40 +1026,117 @@ using namespace std;
 //     }
 // }
 
-#include <algorithm>
-#include <iterator>
-#include <list>
+// #include <algorithm>
+// #include <iterator>
+// #include <list>
+// // int main()
+// // {
+// //     vector<string> coll;
+// //     copy(istream_iterator<string>(cin), istream_iterator<string>(), back_inserter(coll));
+// //     sort(coll.begin(), coll.end());
+// //     unique_copy(coll.cbegin(), coll.cend(), ostream_iterator<string>(cout, "\r\n"));
+// // }
+
 // int main()
 // {
-//     vector<string> coll;
-//     copy(istream_iterator<string>(cin), istream_iterator<string>(), back_inserter(coll));
-//     sort(coll.begin(), coll.end());
-//     unique_copy(coll.cbegin(), coll.cend(), ostream_iterator<string>(cout, "\r\n"));
+//     list<int> coll;
+
+//     for (size_t i = 1; i <= 6; i++)
+//     {
+//         coll.push_front(i);
+//         coll.push_back(i);
+//     }
+
+//     cout << "pre: ";
+//     copy(coll.cbegin(), coll.cend(), ostream_iterator<int>(cout, " "));
+//     cout << endl;
+
+//     list<int>::const_iterator end = remove(coll.begin(), coll.end(), 3);
+//     cout << *end << endl;
+
+//     copy(coll.cbegin(), end, ostream_iterator<int>(cout, " "));
+//     cout << endl;
+
+//     cout << distance(end, coll.cend()) << endl;
+//     //std::cout << std::distance(coll.begin(), coll.end()) << std::endl;
+//     coll.remove(1);
+//     coll.remove(2);
+//     coll.remove(3);
 // }
 
+// class PrintInt
+// {
+// public:
+//     void operator() (int elem) const{
+//         cout << elem << " ";
+//     }
+// };
+// #include<algorithm>
+// int main()
+// {
+//     vector<int> coll = {1, 2, 3, 4, 5, 6, 7, 8};
+//     for_each(coll.cbegin(), coll.cend(), PrintInt());
+//     cout << endl;
+// }
+
+// #include <iostream>
+// #include <vector>
+// #include <algorithm>
+// #include <numeric>
+
+// int main() {
+//     std::vector<int> myVector = {10, 5, 3, 8, 15};
+
+//     // 计算最大值
+//     int maxElement = *std::max_element(myVector.begin(), myVector.end());
+
+//     // 计算最小值
+//     int minElement = *std::min_element(myVector.begin(), myVector.end());
+
+//     // 计算平均值
+//     double average = static_cast<double>(std::accumulate(myVector.begin(), myVector.end(), 0)) / myVector.size();
+
+//     std::cout << "Max: " << maxElement << std::endl;
+//     std::cout << "Min: " << minElement << std::endl;
+//     std::cout << "Average: " << average << std::endl;
+
+//     return 0;
+// }
+
+
+// #include<algorithm>
+// #include<functional>
+// template <int theValue>
+
+// void add(int& elem)
+// {
+//     elem += theValue;
+// }
+
+// void foo()
+// {
+//     vector<int> v(5, 0);
+//     for_each(v.begin(), v.end(), add<10>);
+//     for(auto i:v)
+//     {
+//         cout << i << endl;
+//     }
+//     transform(v.cbegin(), v.cend(), v.end(), negate<int>());
+// }
+
+// int main()
+// {
+//     foo();
+//     return 0;
+// }
+
+#include<deque>
+#include<iterator>
 int main()
 {
-    list<int> coll;
-
-    for (size_t i = 1; i <= 6; i++)
+    deque<int> q{std::istream_iterator<int>(std::cin), std::istream_iterator<int>()};
+    for(auto& v:q)
     {
-        coll.push_front(i);
-        coll.push_back(i);
+        cout << v << endl;
     }
-
-    cout << "pre: ";
-    copy(coll.cbegin(), coll.cend(), ostream_iterator<int>(cout, " "));
-    cout << endl;
-
-    list<int>::const_iterator end = remove(coll.begin(), coll.end(), 3);
-    cout << *end << endl;
-
-    copy(coll.cbegin(), end, ostream_iterator<int>(cout, " "));
-    cout << endl;
-
-    cout << distance(end, coll.cend()) << endl;
-    //std::cout << std::distance(coll.begin(), coll.end()) << std::endl;
-    coll.remove(1);
-    coll.remove(2);
-    coll.remove(3);
 }
