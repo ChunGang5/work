@@ -1130,34 +1130,89 @@ using namespace std;
 //     return 0;
 // }
 
-#include<deque>
-#include<iterator>
-#include<unordered_set>
-int main()
-{
-    // deque<int> q{std::istream_iterator<int>(std::cin), std::istream_iterator<int>()};
-    // for(auto& v:q)
-    // {
-    //     cout << v << endl;
-    // }
+// #include<deque>
+// #include<iterator>
+// #include<unordered_set>
+// int main()
+// {
+//     // deque<int> q{std::istream_iterator<int>(std::cin), std::istream_iterator<int>()};
+//     // for(auto& v:q)
+//     // {
+//     //     cout << v << endl;
+//     // }
 
-    vector<int> v = {1, 2, 3, 4, 5};
-    //v.assign(2, 10);
-    for(const auto& i:v)
-    {
-        cout << i << endl;
+//     vector<int> v = {1, 2, 3, 4, 5};
+//     //v.assign(2, 10);
+//     for(const auto& i:v)
+//     {
+//         cout << i << endl;
+//     }
+//     cout << v.at(1) << endl;
+
+//     deque<int> dq;
+//     dq.push_back(1);
+//     dq.push_front(2);
+//     for(auto& i:dq)
+//     {
+//         cout << i << endl;
+//     }
+
+//     unordered_multiset<std::string> set1;
+//     auto fun = set1.hash_function();
+//     cout << fun("146646446613") << endl;
+// }
+
+// #include <iostream>
+// #include <vector>
+// #include <iterator>
+
+// int main() {
+//     std::vector<int> source = {1, 2, 3, 4, 5};
+//     std::vector<int> destination = {10, 20, 30, 40};
+
+//     // 获取一个插入迭代器，将元素插入到destination的末尾
+//     std::insert_iterator<std::vector<int>> inserter(destination, destination.begin());
+
+
+//     // 使用插入迭代器将source的元素插入到destination的指定位置
+//     std::copy(source.begin(), source.end(), inserter);
+
+//     // 输出合并后的结果
+//     for (const auto& num : destination) {
+//         std::cout << num << " ";
+//     }
+
+//     return 0;
+// }
+
+#include <iostream>
+#include <iterator>
+#include <vector>
+
+int main() {
+    std::vector<int> vec = {1, 2, 3, 4, 5};
+    using IteratorType = std::vector<int>::iterator;
+
+    // 获取迭代器的类别
+    using Category = typename std::iterator_traits<IteratorType>::iterator_category;
+
+    // 输出迭代器的类别
+    std::cout << "Iterator category: ";
+    if (std::is_same<Category, std::input_iterator_tag>::value) {
+        std::cout << "Input Iterator";
+    } else if (std::is_same<Category, std::output_iterator_tag>::value) {
+        std::cout << "Output Iterator";
+    } else if (std::is_same<Category, std::forward_iterator_tag>::value) {
+        std::cout << "Forward Iterator";
+    } else if (std::is_same<Category, std::bidirectional_iterator_tag>::value) {
+        std::cout << "Bidirectional Iterator";
+    } else if (std::is_same<Category, std::random_access_iterator_tag>::value) {
+        std::cout << "Random Access Iterator";
+    } else {
+        std::cout << "Unknown Iterator Category";
     }
-    cout << v.at(1) << endl;
 
-    deque<int> dq;
-    dq.push_back(1);
-    dq.push_front(2);
-    for(auto& i:dq)
-    {
-        cout << i << endl;
-    }
+    std::cout << std::endl;
 
-    unordered_multiset<std::string> set1;
-    auto fun = set1.hash_function();
-    cout << fun("146646446613") << endl;
+    return 0;
 }
