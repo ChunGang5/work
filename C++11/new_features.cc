@@ -1132,11 +1132,32 @@ using namespace std;
 
 #include<deque>
 #include<iterator>
+#include<unordered_set>
 int main()
 {
-    deque<int> q{std::istream_iterator<int>(std::cin), std::istream_iterator<int>()};
-    for(auto& v:q)
+    // deque<int> q{std::istream_iterator<int>(std::cin), std::istream_iterator<int>()};
+    // for(auto& v:q)
+    // {
+    //     cout << v << endl;
+    // }
+
+    vector<int> v = {1, 2, 3, 4, 5};
+    //v.assign(2, 10);
+    for(const auto& i:v)
     {
-        cout << v << endl;
+        cout << i << endl;
     }
+    cout << v.at(1) << endl;
+
+    deque<int> dq;
+    dq.push_back(1);
+    dq.push_front(2);
+    for(auto& i:dq)
+    {
+        cout << i << endl;
+    }
+
+    unordered_multiset<std::string> set1;
+    auto fun = set1.hash_function();
+    cout << fun("146646446613") << endl;
 }
