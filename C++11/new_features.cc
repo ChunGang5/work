@@ -1185,34 +1185,44 @@ using namespace std;
 //     return 0;
 // }
 
-#include <iostream>
-#include <iterator>
-#include <vector>
+// #include <iostream>
+// #include <iterator>
+// #include <vector>
 
-int main() {
-    std::vector<int> vec = {1, 2, 3, 4, 5};
-    using IteratorType = std::vector<int>::iterator;
+// int main() {
+//     std::vector<int> vec = {1, 2, 3, 4, 5};
+//     using IteratorType = std::vector<int>::iterator;
 
-    // 获取迭代器的类别
-    using Category = typename std::iterator_traits<IteratorType>::iterator_category;
+//     // 获取迭代器的类别
+//     using Category = typename std::iterator_traits<IteratorType>::iterator_category;
 
-    // 输出迭代器的类别
-    std::cout << "Iterator category: ";
-    if (std::is_same<Category, std::input_iterator_tag>::value) {
-        std::cout << "Input Iterator";
-    } else if (std::is_same<Category, std::output_iterator_tag>::value) {
-        std::cout << "Output Iterator";
-    } else if (std::is_same<Category, std::forward_iterator_tag>::value) {
-        std::cout << "Forward Iterator";
-    } else if (std::is_same<Category, std::bidirectional_iterator_tag>::value) {
-        std::cout << "Bidirectional Iterator";
-    } else if (std::is_same<Category, std::random_access_iterator_tag>::value) {
-        std::cout << "Random Access Iterator";
-    } else {
-        std::cout << "Unknown Iterator Category";
-    }
+//     // 输出迭代器的类别
+//     std::cout << "Iterator category: ";
+//     if (std::is_same<Category, std::input_iterator_tag>::value) {
+//         std::cout << "Input Iterator";
+//     } else if (std::is_same<Category, std::output_iterator_tag>::value) {
+//         std::cout << "Output Iterator";
+//     } else if (std::is_same<Category, std::forward_iterator_tag>::value) {
+//         std::cout << "Forward Iterator";
+//     } else if (std::is_same<Category, std::bidirectional_iterator_tag>::value) {
+//         std::cout << "Bidirectional Iterator";
+//     } else if (std::is_same<Category, std::random_access_iterator_tag>::value) {
+//         std::cout << "Random Access Iterator";
+//     } else {
+//         std::cout << "Unknown Iterator Category";
+//     }
 
-    std::cout << std::endl;
+//     std::cout << std::endl;
 
-    return 0;
+//     return 0;
+// }
+
+
+int main()
+{
+    int arr[5] = {1, 2, 3, 4, 5};
+    int *a = arr+1;
+
+    #define DECLARE(name, type) type name##_##type##_type
+    DECLARE(val, int);
 }
