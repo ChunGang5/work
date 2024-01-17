@@ -1218,11 +1218,11 @@ using namespace std;
 // }
 
 
-int main()
-{
-    int arr[5] = {1, 2, 3, 4, 5};
-    int *a = arr+1;
+// int main()
+// {
+//     int arr[5] = {1, 2, 3, 4, 5};
+//     int *a      = arr + 1;
 
-    #define DECLARE(name, type) type name##_##type##_type
-    DECLARE(val, int);
-}
+// #define DECLARE(name, type) type name##_##type##_type
+//     DECLARE(val, int);
+// }
