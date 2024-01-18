@@ -26,7 +26,7 @@ using namespace std;
 //             {
 //                 return true;
 //             }
-//             else 
+//             else
 //             {
 //                 set1.insert(num);
 //             }
@@ -100,64 +100,75 @@ using namespace std;
 // };
 
 // 合并两个有序数组
+// class Solution {
+// public:
+//     void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
+//         vector<int> result;
+//         int i,j=0;
+//         while(i<m && j<n)
+//         {
+//             if(nums1[i]<nums2[j])
+//             {
+//                 result.push_back(nums1[i]);
+//                 i++;
+//             }
+//             else if(nums1[i]==nums2[j])
+//             {
+//                 result.push_back(nums1[i]);
+//                 result.push_back(nums2[j]);
+//                 i++;
+//                 j++;
+//             }
+//             else
+//             {
+//                 result.push_back(nums2[j]);
+//                 j++;
+//             }
+//         }
+//         if(i>=m && j<n)
+//         {
+//             for(;j<n;j++)
+//             {
+//                 result.push_back(nums2[j]);
+//             }
+//         }
+//         if(j>=n&&i<m)
+//         {
+//             for(;i<m;i++)
+//             {
+//                 result.push_back(nums1[i]);
+//             }
+//         }
+//         for (int i = 0; i < m + n; i++)
+//         {
+//             nums1[i] = result[i];
+//         }
+//         for(auto it : nums1)
+//         {
+//             cout << it << endl;
+//         }
+//     }
+// };
+
+// 128. 最长连续序列
 class Solution {
 public:
-    void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) { 
-        vector<int> result;
-        int i,j=0;
-        while(i<m && j<n)
-        {
-            if(nums1[i]<nums2[j])
-            {
-                result.push_back(nums1[i]);
-                i++;
-            }
-            else if(nums1[i]==nums2[j])
-            {
-                result.push_back(nums1[i]);
-                result.push_back(nums2[j]);
-                i++;
-                j++;
-            }
-            else
-            {
-                result.push_back(nums2[j]);
-                j++;
-            }
-        }
-        if(i>=m && j<n)
-        {
-            for(;j<n;j++)
-            {
-                result.push_back(nums2[j]);
-            }
-        }
-        if(j>=n&&i<m)
-        {
-            for(;i<m;i++)
-            {
-                result.push_back(nums1[i]);
-            }
-        }
-        for (int i = 0; i < m + n; i++)
-        {
-            nums1[i] = result[i];
-        }
-        for(auto it : nums1)
-        {
-            cout << it << endl;
-        }
+    int longestConsecutive(vector<int>& nums) {
+
     }
 };
 
 int main()
 {
     Solution solu;
-    vector<int> nums1 = {1,2,3,0,0,0};
-    vector<int> nums2 = {2,5,6};
-    int sum = 9;
-    vector<int> result;
-    solu.merge(nums1,3, nums2,3);
+    // vector<int> nums1 = {1,2,3,0,0,0};
+    // vector<int> nums2 = {2,5,6};
+    // int sum = 9;
+    // vector<int> result;
+    //solu.merge(nums1,3, nums2,3);
     //cout << result << endl;
+    vector<int> nums = {100, 4, 200, 1, 3, 2};
+    int count = solu.longestConsecutive(nums);
+    cout << "count = " << count << endl;
     return 0;
 }
