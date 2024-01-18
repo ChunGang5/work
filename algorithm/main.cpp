@@ -4,13 +4,13 @@
  * @last_author: Gang Chen (smilechengang@qq.com)
  * @last_edit_time: 2023-05-24 14:14:42
  */
+#include <algorithm>
 #include <iostream>
-#include <vector>
 #include <map>
 #include <set>
 #include <unordered_map>
 #include <unordered_set>
-#include <algorithm>
+#include <vector>
 
 using namespace std;
 
@@ -151,10 +151,75 @@ using namespace std;
 // };
 
 // 128. 最长连续序列
+// 方法一：排序再去重，找最长连续序列
+// class Solution
+// {
+// public:
+//     int longestConsecutive(vector<int>& nums)
+//     {
+//         if (nums.size() == 0)
+//             return 0;
+//         sort(nums.begin(), nums.end());
+//         // 去重
+//         auto it = unique(nums.begin(), nums.end());
+//         nums.erase(it, nums.end());
+//         int result = 1;
+//         int count  = 1;
+//         int number = nums[0];
+//         for (int i = 1; i < nums.size(); i++)
+//         {
+//             if (number + 1 == nums[i])
+//             {
+//                 count++;
+//                 number = nums[i];
+//             }
+//             else
+//             {
+//                 if(count>result)
+//                 {
+//                     result = count;
+
+//                 }
+//                 count  = 1;
+//                 number = nums[i];
+//             }
+//         }
+//         if(count>result)
+//         {
+//                 result = count;
+
+//         }
+//         return (count > result) ? count : result;
+//     }
+// };
+
+// 借助哈希表，去重，找起始的数字（排序）
 class Solution {
 public:
     int longestConsecutive(vector<int>& nums) {
+        int result=0;
+        unordered_set<int> nums_set;
+        for(const auto &num:nums)
+        {
+            nums_set.insert(num);
+        }
 
+        for(auto num:nums_set)
+        {
+            if(!nums_set.count(num-1))
+            // 寻找最开始的数字
+            {
+                int curNum = num;
+                int count  = 1;
+                while(nums_set.count(curNum+1))
+                {
+                    count++;
+                    curNum += 1;
+                }
+                result = max(result, count);
+            }
+        }
+        return result;
     }
 };
 
@@ -165,10 +230,33 @@ int main()
     // vector<int> nums2 = {2,5,6};
     // int sum = 9;
     // vector<int> result;
-    //solu.merge(nums1,3, nums2,3);
-    //cout << result << endl;
-    vector<int> nums = {100, 4, 200, 1, 3, 2};
-    int count = solu.longestConsecutive(nums);
+    // solu.merge(nums1,3, nums2,3);
+    // cout << result << endl;
+    vector<int> nums  = {9,1,4,7,3,-1,0,5,8,-1,6};
+    int         count = solu.longestConsecutive(nums);
     cout << "count = " << count << endl;
     return 0;
 }
+
+// #include <iostream>
+// #include <vector>
+// #include <algorithm>
+
+// int main() {
+//     std::vector<int> vec = {1, 2, 2, 3, 4, 4, 5, 6, 6, 6, 7};
+
+//     // 使用 std::unique 将重复元素移动到 vector 末尾
+//     auto it = std::unique(vec.begin(), vec.end());
+//     cout << "it = " << *it << endl;
+//     // 使用 erase 擦除重复元素
+//     vec.erase(it, vec.end());
+
+//     // 输出去重后的 vector
+//     std::cout << "去重后的 vector: ";
+//     for (int num : vec) {
+//         std::cout << num << " ";
+//     }
+//     std::cout << std::endl;
+
+//     return 0;
+// }
