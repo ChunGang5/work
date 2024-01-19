@@ -194,30 +194,50 @@ using namespace std;
 // };
 
 // 借助哈希表，去重，找起始的数字（排序）
+// class Solution {
+// public:
+//     int longestConsecutive(vector<int>& nums) {
+//         int result=0;
+//         unordered_set<int> nums_set;
+//         for(const auto &num:nums)
+//         {
+//             nums_set.insert(num);
+//         }
+
+//         for(auto num:nums_set)
+//         {
+//             if(!nums_set.count(num-1))
+//             // 寻找最开始的数字
+//             {
+//                 int curNum = num;
+//                 int count  = 1;
+//                 while(nums_set.count(curNum+1))
+//                 {
+//                     count++;
+//                     curNum += 1;
+//                 }
+//                 result = max(result, count);
+//             }
+//         }
+//         return result;
+//     }
+// };
+
+// 49. 字母异位词分组
 class Solution {
 public:
-    int longestConsecutive(vector<int>& nums) {
-        int result=0;
-        unordered_set<int> nums_set;
-        for(const auto &num:nums)
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+        unordered_map<string, vector<string>> mp;
+        for(auto str:strs)
         {
-            nums_set.insert(num);
+            string key = str;
+            sort(key.begin(), key.end());
+            mp[key].emplace_back(str);
         }
-
-        for(auto num:nums_set)
+        vector<vector<string>> result;
+        for (auto it = mp.begin(); it != mp.end();it++)
         {
-            if(!nums_set.count(num-1))
-            // 寻找最开始的数字
-            {
-                int curNum = num;
-                int count  = 1;
-                while(nums_set.count(curNum+1))
-                {
-                    count++;
-                    curNum += 1;
-                }
-                result = max(result, count);
-            }
+            result.emplace_back(it->second);
         }
         return result;
     }
@@ -232,9 +252,15 @@ int main()
     // vector<int> result;
     // solu.merge(nums1,3, nums2,3);
     // cout << result << endl;
-    vector<int> nums  = {9,1,4,7,3,-1,0,5,8,-1,6};
-    int         count = solu.longestConsecutive(nums);
-    cout << "count = " << count << endl;
+    // vector<int> nums  = {9,1,4,7,3,-1,0,5,8,-1,6};
+    // int         count = solu.longestConsecutive(nums);
+    //cout << "count = " << count << endl;
+
+    // 输入: strs = ["eat", "tea", "tan", "ate", "nat", "bat"]
+    // 输出: [["bat"],["nat","tan"],["ate","eat","tea"]]
+    vector<string> strs = { "eat", "tea", "tan", "ate", "nat", "bat" };
+    vector<vector<string>> result = solu.groupAnagrams(strs);
+
     return 0;
 }
 
