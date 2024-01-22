@@ -224,20 +224,120 @@ using namespace std;
 // };
 
 // 49. 字母异位词分组
-class Solution {
+// class Solution {
+// public:
+//     vector<vector<string>> groupAnagrams(vector<string>& strs) {
+//         unordered_map<string, vector<string>> mp;
+//         for(auto str:strs)
+//         {
+//             string key = str;
+//             sort(key.begin(), key.end());
+//             mp[key].emplace_back(str);
+//         }
+//         vector<vector<string>> result;
+//         for (auto it = mp.begin(); it != mp.end();it++)
+//         {
+//             result.emplace_back(it->second);
+//         }
+//         return result;
+//     }
+// };
+
+// 283. 移动零
+// 方法一，使用冒泡排序的思想
+// class Solution
+// {
+// public:
+//     void moveZeroes(vector<int>& nums)
+//     {
+//         if (nums.size() <= 1)
+//         {
+//             return;
+//         }
+//         for (int i = 1; i < nums.size(); i++)
+//         {
+//             for (int j = 0; j < nums.size() - i; j++)
+//             {
+//                 if (nums[j] == 0 && nums[j + 1] != 0)
+//                 {
+//                     int temp = nums[j];
+//                     nums[j]  = nums[j + 1];
+//                     nums[j + 1] = temp;
+//                 }
+//             }
+//         }
+//     }
+// };
+
+// 方法二：双指针
+// class Solution {
+// public:
+//     void moveZeroes(vector<int>& nums) {
+//         int n = nums.size(), left = 0, right = 0;
+//         while (right < n) {
+//             if (nums[right]) {
+//                 swap(nums[left], nums[right]);
+//                 left++;
+//             }
+//             right++;
+//         }
+//     }
+// };
+
+// 15. 三数之和
+class Solution
+{
 public:
-    vector<vector<string>> groupAnagrams(vector<string>& strs) {
-        unordered_map<string, vector<string>> mp;
-        for(auto str:strs)
+    vector<vector<int>> threeSum(vector<int>& nums)
+    {
+        vector<vector<int>> result;
+        if (nums.size() < 3)
         {
-            string key = str;
-            sort(key.begin(), key.end());
-            mp[key].emplace_back(str);
+            return result;
         }
-        vector<vector<string>> result;
-        for (auto it = mp.begin(); it != mp.end();it++)
+        sort(nums.begin(), nums.end());
+        for (int i = 0; i < nums.size(); i++)
         {
-            result.emplace_back(it->second);
+            if (nums[i] > 0)
+            {
+                break;
+            }
+
+            // 短路效应，放置越界访问，如果本次起始位置元素值与之前相同，则本次不比较，因为比较出来也是重复值
+            if (i > 0 && nums[i] == nums[i - 1])
+            {
+                continue;
+            }
+            int left = i + 1, right = nums.size() - 1;
+            while (left < right)
+            {
+                int sum = nums[i] + nums[left] + nums[right];
+                if (sum == 0)
+                {
+                    vector<int> midResult = {nums[i], nums[left], nums[right]};
+                    result.emplace_back(midResult);
+                    // 结果去重
+                    while (left < right && nums[left] == nums[left + 1])
+                    {
+                        left++;
+                    }
+                    while (left < right && nums[right] == nums[right - 1])
+                    {
+                        right--;
+                    }
+                    // 移动指针到新的不同的元素上
+                    left++;
+                    right--;
+                }
+                else if (sum < 0)
+                {
+                    left++;
+                }
+                else
+                {
+                    right--;
+                }
+            }
         }
         return result;
     }
@@ -254,12 +354,16 @@ int main()
     // cout << result << endl;
     // vector<int> nums  = {9,1,4,7,3,-1,0,5,8,-1,6};
     // int         count = solu.longestConsecutive(nums);
-    //cout << "count = " << count << endl;
-
+    // cout << "count = " << count << endl;
     // 输入: strs = ["eat", "tea", "tan", "ate", "nat", "bat"]
     // 输出: [["bat"],["nat","tan"],["ate","eat","tea"]]
-    vector<string> strs = { "eat", "tea", "tan", "ate", "nat", "bat" };
-    vector<vector<string>> result = solu.groupAnagrams(strs);
+    // vector<string> strs = { "eat", "tea", "tan", "ate", "nat", "bat" };
+    // vector<vector<string>> result = solu.groupAnagrams(strs);
+    // vector<int> nums={0,2,0,0,3,0,12};
+    // solu.moveZeroes(nums);
+
+    vector<int> nums = {-1, 0, 1, 2, -1, -4};
+    solu.threeSum(nums);
 
     return 0;
 }
