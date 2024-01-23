@@ -285,61 +285,124 @@ using namespace std;
 // };
 
 // 15. 三数之和
-class Solution
-{
-public:
-    vector<vector<int>> threeSum(vector<int>& nums)
-    {
-        vector<vector<int>> result;
-        if (nums.size() < 3)
-        {
-            return result;
-        }
-        sort(nums.begin(), nums.end());
-        for (int i = 0; i < nums.size(); i++)
-        {
-            if (nums[i] > 0)
-            {
-                break;
-            }
+// class Solution
+// {
+// public:
+//     vector<vector<int>> threeSum(vector<int>& nums)
+//     {
+//         vector<vector<int>> result;
+//         if (nums.size() < 3)
+//         {
+//             return result;
+//         }
+//         sort(nums.begin(), nums.end());
+//         for (int i = 0; i < nums.size(); i++)
+//         {
+//             if (nums[i] > 0)
+//             {
+//                 break;
+//             }
 
-            // 短路效应，放置越界访问，如果本次起始位置元素值与之前相同，则本次不比较，因为比较出来也是重复值
-            if (i > 0 && nums[i] == nums[i - 1])
-            {
-                continue;
-            }
-            int left = i + 1, right = nums.size() - 1;
-            while (left < right)
-            {
-                int sum = nums[i] + nums[left] + nums[right];
-                if (sum == 0)
-                {
-                    vector<int> midResult = {nums[i], nums[left], nums[right]};
-                    result.emplace_back(midResult);
-                    // 结果去重
-                    while (left < right && nums[left] == nums[left + 1])
-                    {
-                        left++;
-                    }
-                    while (left < right && nums[right] == nums[right - 1])
-                    {
-                        right--;
-                    }
-                    // 移动指针到新的不同的元素上
-                    left++;
-                    right--;
-                }
-                else if (sum < 0)
-                {
-                    left++;
-                }
-                else
-                {
-                    right--;
-                }
-            }
-        }
-        return result;
+//             // 短路效应，放置越界访问，如果本次起始位置元素值与之前相同，则本次不比较，因为比较出来也是重复值
+//             if (i > 0 && nums[i] == nums[i - 1])
+//             {
+//                 continue;
+//             }
+//             int left = i + 1, right = nums.size() - 1;
+//             while (left < right)
+//             {
+//                 int sum = nums[i] + nums[left] + nums[right];
+//                 if (sum == 0)
+//                 {
+//                     vector<int> midResult = {nums[i], nums[left], nums[right]};
+//                     result.emplace_back(midResult);
+//                     // 结果去重
+//                     while (left < right && nums[left] == nums[left + 1])
+//                     {
+//                         left++;
+//                     }
+//                     while (left < right && nums[right] == nums[right - 1])
+//                     {
+//                         right--;
+//                     }
+//                     // 移动指针到新的不同的元素上
+//                     left++;
+//                     right--;
+//                 }
+//                 else if (sum < 0)
+//                 {
+//                     left++;
+//                 }
+//                 else
+//                 {
+//                     right--;
+//                 }
+//             }
+//         }
+//         return result;
+//     }
+// };
+
+// 11. 盛最多水的容器
+// class Solution {
+// public:
+//     int maxArea(vector<int>& height) {
+//         if(height.size()<=1)
+//             return 0;
+//         int n = height.size(), left = 0, right = n - 1;
+//         int result = 0;
+//         while(left < right)
+//         {
+//             int midArea = min(height[left], height[right]) * (right - left);
+//             result      = max(result, midArea);
+//             if(height[left]<height[right])
+//             {
+//                 left++;
+//             }
+//             else{
+//                 right--;
+//             }
+//         }
+//         return result;
+//     }
+// };
+
+// 3. 无重复字符的最长子串
+// 方法一：滑动窗口
+// class Solution {
+// public:
+//     int lengthOfLongestSubstring(string s) {
+//         if(s.size()==0)
+//             return 0;
+//         if(s.size()==1)
+//             return 1;
+
+//         unordered_set<char> midSet;
+//         int                 result = 0;
+//         int                 n = s.size(), start = 0, end = 0;
+//         for (; start < n; start++)
+//         {
+//             if(start!=0)
+//             {
+//                 // start等于0的时候set里没有任何元素
+//                 midSet.erase(s[start-1]);
+//             }
+//             while (end < n && midSet.find(s[end])==midSet.end())
+//             {
+//                 // 元素不同则一直扩大右边界，知道有重复字符
+//                 midSet.insert(s[end]);
+//                 end++;
+//             }
+//             result = max(result, end - start);
+//         }
+//         return result;
+//     }
+// };
+// 方法二：
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        
     }
 };
 
@@ -361,10 +424,13 @@ int main()
     // vector<vector<string>> result = solu.groupAnagrams(strs);
     // vector<int> nums={0,2,0,0,3,0,12};
     // solu.moveZeroes(nums);
+    // vector<int> nums = {-1, 0, 1, 2, -1, -4};
+    // solu.threeSum(nums);
+    // vector<int> height = {1, 8, 6, 2, 5, 4, 8, 3, 7};
+    // solu.maxArea(height);
 
-    vector<int> nums = {-1, 0, 1, 2, -1, -4};
-    solu.threeSum(nums);
-
+    string str="abcabcbb";
+    solu.lengthOfLongestSubstring(str);
     return 0;
 }
 
