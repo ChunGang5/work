@@ -399,13 +399,85 @@ using namespace std;
 //     }
 // };
 // 方法二：
+// class Solution {
+// public:
+//     int lengthOfLongestSubstring(string s) {
+
+//     }
+// };
+
+// 28. 找出字符串中第一个匹配项的下标
+// 方法一：暴力解法
+// class Solution {
+// public:
+//     int strStr(string haystack, string needle) {
+//         if(needle.size()==0)
+//             return 0;
+//         int m = haystack.size(), n = needle.size();
+//         for (int i = 0; i<=m-n;i++)
+//         {
+//             int j = i, k = 0;
+//             while (k < n&&haystack[j]==needle[k])
+//             {
+//                 j++;
+//                 k++;
+//             }
+//             if(k==n)
+//             {
+//                 return i;
+//             }
+//         }
+//         return -1;
+//     }
+// };
+// 方法二：KMP解法
 class Solution {
 public:
-    int lengthOfLongestSubstring(string s) {
-        
+    int strStr(string haystack, string needle) {
+        if(needle.size()==0)
+            return 0;
+        int m = haystack.size(), n = needle.size();
+        // 构建next数组
+        vector<int> nextArray(n+1);
+        nextArray[0]  = -1;
+        int         i = 0, j = -1;
+        while (i<n)
+        {
+            if(j==-1||needle[i]==needle[j])
+            {
+                i++;
+                j++;
+                nextArray[i] = j;
+            }
+            else
+            {
+                j = nextArray[j];
+            }
+        }
+        // 开始比较
+        i = 0, j = 0;
+        while(i<m&&j<n)
+        {
+            if(j==-1||haystack[i]==needle[j])
+            {
+                i++;
+                j++;
+            }
+            else
+            {
+                j = nextArray[j];
+            }
+        }
+        if(j==n)
+        {
+            return i - j;
+        }
+        else
+        {
+            return -1;
+        }
     }
 };
-
 int main()
 {
     Solution solu;
@@ -428,9 +500,12 @@ int main()
     // solu.threeSum(nums);
     // vector<int> height = {1, 8, 6, 2, 5, 4, 8, 3, 7};
     // solu.maxArea(height);
+    // string str="abcabcbb";
+    // solu.lengthOfLongestSubstring(str);
 
-    string str="abcabcbb";
-    solu.lengthOfLongestSubstring(str);
+    string haystack = "leetcode", needle = "leeto";
+    cout << solu.strStr(haystack, needle) << endl;
+
     return 0;
 }
 
