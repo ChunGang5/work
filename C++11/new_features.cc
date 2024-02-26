@@ -1226,3 +1226,11 @@ using namespace std;
 // #define DECLARE(name, type) type name##_##type##_type
 //     DECLARE(val, int);
 // }
+
+
+
+
+int main()
+{
+    // 测试
+}
