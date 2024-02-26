@@ -1226,3 +1226,8 @@ using namespace std;
 // #define DECLARE(name, type) type name##_##type##_type
 //     DECLARE(val, int);
 // }
+
+int func()
+{
+    add(1 + 2);
+}
