@@ -1227,11 +1227,3 @@ using namespace std;
 //     DECLARE(val, int);
 // }
 
-int func()
-{
-    add(1 + 2);
-}
-int sum()
-{
-
-}
