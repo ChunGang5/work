@@ -431,53 +431,54 @@ using namespace std;
 //     }
 // };
 // 方法二：KMP解法
-class Solution {
-public:
-    int strStr(string haystack, string needle) {
-        if(needle.size()==0)
-            return 0;
-        int m = haystack.size(), n = needle.size();
-        // 构建next数组
-        vector<int> nextArray(n+1);
-        nextArray[0]  = -1;
-        int         i = 0, j = -1;
-        while (i<n)
-        {
-            if(j==-1||needle[i]==needle[j])
-            {
-                i++;
-                j++;
-                nextArray[i] = j;
-            }
-            else
-            {
-                j = nextArray[j];
-            }
-        }
-        // 开始比较
-        i = 0, j = 0;
-        while(i<m&&j<n)
-        {
-            if(j==-1||haystack[i]==needle[j])
-            {
-                i++;
-                j++;
-            }
-            else
-            {
-                j = nextArray[j];
-            }
-        }
-        if(j==n)
-        {
-            return i - j;
-        }
-        else
-        {
-            return -1;
-        }
-    }
-};
+// class Solution {
+// public:
+//     int strStr(string haystack, string needle) {
+//         if(needle.size()==0)
+//             return 0;
+//         int m = haystack.size(), n = needle.size();
+//         // 构建next数组
+//         vector<int> nextArray(n+1);
+//         nextArray[0]  = -1;
+//         int         i = 0, j = -1;
+//         while (i<n)
+//         {
+//             if(j==-1||needle[i]==needle[j])
+//             {
+//                 i++;
+//                 j++;
+//                 nextArray[i] = j;
+//             }
+//             else
+//             {
+//                 j = nextArray[j];
+//             }
+//         }
+//         // 开始比较
+//         i = 0, j = 0;
+//         while(i<m&&j<n)
+//         {
+//             if(j==-1||haystack[i]==needle[j])
+//             {
+//                 i++;
+//                 j++;
+//             }
+//             else
+//             {
+//                 j = nextArray[j];
+//             }
+//         }
+//         if(j==n)
+//         {
+//             return i - j;
+//         }
+//         else
+//         {
+//             return -1;
+//         }
+//     }
+// };
+
 int main()
 {
     Solution solu;
