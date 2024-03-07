@@ -11,6 +11,7 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
+#include <queue>
 
 using namespace std;
 
@@ -479,6 +480,84 @@ using namespace std;
 //     }
 // };
 
+
+
+ struct TreeNode {
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode() : val(0), left(nullptr), right(nullptr) {}
+    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+    TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+};
+
+// 前序遍历非递归
+class Solution {
+public:
+    vector<int> preorderTraversal(TreeNode* root) {
+        vector<int> result;
+        if(root==nullptr)
+        {
+            return result;
+        }
+        stack<TreeNode*> tree_st;
+        tree_st.push(root);
+        // cur_root更合适，其实也就是每次将一个树，通过当前的根节点划分成一个子树
+        tree_st.push(root);
+        while(!tree_st.empty())
+        {
+            TreeNode* cur_root = tree_st.top();
+            result.emplace_back(cur_root->val);
+            tree_st.pop();
+            if(cur_root->right)
+            {
+                tree_st.push(cur_root->right);
+            }
+            if(cur_root->left)
+            {
+                tree_st.push(cur_root->right);
+            }
+        }
+        return result;
+    }
+};
+
+// 层序遍历
+class Solution {
+public:
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        vector<vector<int>> result;
+        if(root == nullptr)
+        {
+            return result;
+        }
+        queue<TreeNode*> tree_queue;
+        tree_queue.push(root);
+        while(!tree_queue.empty())
+        {
+            vector<int> temp_vec;
+            for(int i =0;i<tree_queue.size();i++)
+            {
+                TreeNode* cur_root=tree_queue.front();
+                tree_queue.pop();
+                temp_vec.emplace_back(cur_root->val); 
+                if(cur_root->left!=nullptr)
+                {
+                    tree_queue.push(cur_root->left);
+                }
+                if(cur_root->right!=nullptr)
+                {
+                    tree_queue.push(cur_root->right);
+                }
+            }
+            result.emplace_back(temp_vec);
+
+        }
+        return result;
+    }
+    
+};
+#include<stack>
 int main()
 {
     Solution solu;
@@ -503,9 +582,11 @@ int main()
     // solu.maxArea(height);
     // string str="abcabcbb";
     // solu.lengthOfLongestSubstring(str);
+    // string haystack = "leetcode", needle = "leeto";
+    // cout << solu.strStr(haystack, needle) << endl;
 
-    string haystack = "leetcode", needle = "leeto";
-    cout << solu.strStr(haystack, needle) << endl;
+    stack<int> st;
+    
 
     return 0;
 }
