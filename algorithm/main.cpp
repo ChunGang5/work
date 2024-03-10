@@ -12,6 +12,7 @@
 #include <unordered_set>
 #include <vector>
 #include <queue>
+#include <stack>
 
 using namespace std;
 
@@ -492,70 +493,118 @@ using namespace std;
 };
 
 // 前序遍历非递归
+// class Solution {
+// public:
+//     vector<int> preorderTraversal(TreeNode* root) {
+//         vector<int> result;
+//         if(root==nullptr)
+//         {
+//             return result;
+//         }
+//         stack<TreeNode*> tree_st;
+//         tree_st.push(root);
+//         // cur_root更合适，其实也就是每次将一个树，通过当前的根节点划分成一个子树
+//         tree_st.push(root);
+//         while(!tree_st.empty())
+//         {
+//             TreeNode* cur_root = tree_st.top();
+//             result.emplace_back(cur_root->val);
+//             tree_st.pop();
+//             if(cur_root->right)
+//             {
+//                 tree_st.push(cur_root->right);
+//             }
+//             if(cur_root->left)
+//             {
+//                 tree_st.push(cur_root->right);
+//             }
+//         }
+//         return result;
+//     }
+// };
+
+// // 层序遍历
+// class Solution {
+// public:
+//     vector<vector<int>> levelOrder(TreeNode* root) {
+//         vector<vector<int>> result;
+//         if(root == nullptr)
+//         {
+//             return result;
+//         }
+//         queue<TreeNode*> tree_queue;
+//         tree_queue.push(root);
+//         while(!tree_queue.empty())
+//         {
+//             vector<int> temp_vec;
+//             for(int i =0;i<tree_queue.size();i++)
+//             {
+//                 TreeNode* cur_root=tree_queue.front();
+//                 tree_queue.pop();
+//                 temp_vec.emplace_back(cur_root->val); 
+//                 if(cur_root->left!=nullptr)
+//                 {
+//                     tree_queue.push(cur_root->left);
+//                 }
+//                 if(cur_root->right!=nullptr)
+//                 {
+//                     tree_queue.push(cur_root->right);
+//                 }
+//             }
+//             result.emplace_back(temp_vec);
+
+//         }
+//         return result;
+//     }
+    
+// };
+
+// 队列加数组逆序的方式更好
 class Solution {
 public:
-    vector<int> preorderTraversal(TreeNode* root) {
-        vector<int> result;
+    vector<vector<int>> levelOrderBottom(TreeNode* root) {
+        vector<vector<int>> result;
         if(root==nullptr)
         {
             return result;
         }
-        stack<TreeNode*> tree_st;
-        tree_st.push(root);
-        // cur_root更合适，其实也就是每次将一个树，通过当前的根节点划分成一个子树
-        tree_st.push(root);
-        while(!tree_st.empty())
+        stack<vector<TreeNode*>> st;
+        queue<TreeNode*> qt;
+        qt.push(root);
+        while(!qt.empty())
         {
-            TreeNode* cur_root = tree_st.top();
-            result.emplace_back(cur_root->val);
-            tree_st.pop();
-            if(cur_root->right)
-            {
-                tree_st.push(cur_root->right);
-            }
-            if(cur_root->left)
-            {
-                tree_st.push(cur_root->right);
-            }
-        }
-        return result;
-    }
-};
-
-// 层序遍历
-class Solution {
-public:
-    vector<vector<int>> levelOrder(TreeNode* root) {
-        vector<vector<int>> result;
-        if(root == nullptr)
-        {
-            return result;
-        }
-        queue<TreeNode*> tree_queue;
-        tree_queue.push(root);
-        while(!tree_queue.empty())
-        {
-            vector<int> temp_vec;
-            for(int i =0;i<tree_queue.size();i++)
-            {
-                TreeNode* cur_root=tree_queue.front();
-                tree_queue.pop();
-                temp_vec.emplace_back(cur_root->val); 
-                if(cur_root->left!=nullptr)
+            vector<TreeNode*> vector_temp;
+            int size=qt.size();
+            for(int i=0;i<size;i++)
+            {   
+                TreeNode* cur_root=qt.front();
+                qt.pop();
+                vector_temp.emplace_back(cur_root);
+                if(cur_root->left)
                 {
-                    tree_queue.push(cur_root->left);
+                    qt.push(cur_root->left);
                 }
-                if(cur_root->right!=nullptr)
+                if(cur_root->right)
                 {
-                    tree_queue.push(cur_root->right);
+                    qt.push(cur_root->right);
                 }
             }
-            result.emplace_back(temp_vec);
-
+            st.push(vector_temp);
         }
+        while (!st.empty())
+        {
+            vector<TreeNode*> vec_temp = st.top();
+            st.pop();
+            vector<int> result_temp;
+            for(auto& t: vec_temp)
+            {
+                result_temp.emplace_back(t->val);
+            }
+            result.emplace_back(result_temp);
+        }
+        
         return result;
     }
-    
 };
 #include<stack>
 int main()
@@ -584,8 +633,13 @@ int main()
     // solu.lengthOfLongestSubstring(str);
     // string haystack = "leetcode", needle = "leeto";
     // cout << solu.strStr(haystack, needle) << endl;
-
-    stack<int> st;
+    
+    TreeNode* cur15=new TreeNode(15);
+    TreeNode* cur7 = new TreeNode(7);
+    auto cur20=new TreeNode(20,cur15,cur7);
+    auto cur9=new TreeNode(9);
+    TreeNode* root = new TreeNode(3, cur9,cur20);
+    solu.levelOrderBottom(root);
     
 
     return 0;
