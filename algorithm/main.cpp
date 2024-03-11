@@ -541,7 +541,7 @@ using namespace std;
 //             {
 //                 TreeNode* cur_root=tree_queue.front();
 //                 tree_queue.pop();
-//                 temp_vec.emplace_back(cur_root->val); 
+//                 temp_vec.emplace_back(cur_root->val);
 //                 if(cur_root->left!=nullptr)
 //                 {
 //                     tree_queue.push(cur_root->left);
@@ -556,53 +556,89 @@ using namespace std;
 //         }
 //         return result;
 //     }
-    
+
 // };
 
 // 队列加数组逆序的方式更好
+// class Solution {
+// public:
+//     vector<vector<int>> levelOrderBottom(TreeNode* root) {
+//         vector<vector<int>> result;
+//         if(root==nullptr)
+//         {
+//             return result;
+//         }
+//         stack<vector<TreeNode*>> st;
+//         queue<TreeNode*> qt;
+//         qt.push(root);
+//         while(!qt.empty())
+//         {
+//             vector<TreeNode*> vector_temp;
+//             int size=qt.size();
+//             for(int i=0;i<size;i++)
+//             {
+//                 TreeNode* cur_root=qt.front();
+//                 qt.pop();
+//                 vector_temp.emplace_back(cur_root);
+//                 if(cur_root->left)
+//                 {
+//                     qt.push(cur_root->left);
+//                 }
+//                 if(cur_root->right)
+//                 {
+//                     qt.push(cur_root->right);
+//                 }
+//             }
+//             st.push(vector_temp);
+//         }
+//         while (!st.empty())
+//         {
+//             vector<TreeNode*> vec_temp = st.top();
+//             st.pop();
+//             vector<int> result_temp;
+//             for(auto& t: vec_temp)
+//             {
+//                 result_temp.emplace_back(t->val);
+//             }
+//             result.emplace_back(result_temp);
+//         }
+
+//         return result;
+//     }
+// };
+
+// 二叉树的右视图
 class Solution {
 public:
-    vector<vector<int>> levelOrderBottom(TreeNode* root) {
-        vector<vector<int>> result;
+    vector<int> rightSideView(TreeNode* root) {
+        vector<int> result;
         if(root==nullptr)
         {
             return result;
         }
-        stack<vector<TreeNode*>> st;
-        queue<TreeNode*> qt;
-        qt.push(root);
-        while(!qt.empty())
+        queue<TreeNode*> queue_tr;
+        queue_tr.push(root);
+        while(!queue_tr.empty())
         {
-            vector<TreeNode*> vector_temp;
-            int size=qt.size();
+            int size=queue_tr.size();
             for(int i=0;i<size;i++)
-            {   
-                TreeNode* cur_root=qt.front();
-                qt.pop();
-                vector_temp.emplace_back(cur_root);
-                if(cur_root->left)
-                {
-                    qt.push(cur_root->left);
-                }
-                if(cur_root->right)
-                {
-                    qt.push(cur_root->right);
-                }
-            }
-            st.push(vector_temp);
-        }
-        while (!st.empty())
-        {
-            vector<TreeNode*> vec_temp = st.top();
-            st.pop();
-            vector<int> result_temp;
-            for(auto& t: vec_temp)
             {
-                result_temp.emplace_back(t->val);
+                TreeNode* cur=queue_tr.front();
+                queue_tr.pop();
+                if(cur->left)
+                {
+                    queue_tr.push(cur->left);
+                }
+                if(cur->right)
+                {
+                    queue_tr.push(cur->right);
+                }
+                if(size-i<=1)
+                {
+                    result.emplace_back(cur->val);;
+                }
             }
-            result.emplace_back(result_temp);
         }
-        
         return result;
     }
 };
@@ -633,14 +669,13 @@ int main()
     // solu.lengthOfLongestSubstring(str);
     // string haystack = "leetcode", needle = "leeto";
     // cout << solu.strStr(haystack, needle) << endl;
-    
+
     TreeNode* cur15=new TreeNode(15);
     TreeNode* cur7 = new TreeNode(7);
     auto cur20=new TreeNode(20,cur15,cur7);
     auto cur9=new TreeNode(9);
     TreeNode* root = new TreeNode(3, cur9,cur20);
-    solu.levelOrderBottom(root);
-    
+    solu.rightSideView(root);
 
     return 0;
 }
