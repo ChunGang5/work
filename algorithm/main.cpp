@@ -560,88 +560,148 @@ using namespace std;
 // };
 
 // 队列加数组逆序的方式更好
-class Solution {
-public:
-    vector<vector<int>> levelOrderBottom(TreeNode* root) {
-        vector<vector<int>> result;
-        if(root==nullptr)
-        {
-            return result;
-        }
-        stack<vector<TreeNode*>> st;
-        queue<TreeNode*> qt;
-        qt.push(root);
-        while(!qt.empty())
-        {
-            vector<TreeNode*> vector_temp;
-            int size=qt.size();
-            for(int i=0;i<size;i++)
-            {   
-                TreeNode* cur_root=qt.front();
-                qt.pop();
-                vector_temp.emplace_back(cur_root);
-                if(cur_root->left)
-                {
-                    qt.push(cur_root->left);
-                }
-                if(cur_root->right)
-                {
-                    qt.push(cur_root->right);
-                }
-            }
-            st.push(vector_temp);
-        }
-        while (!st.empty())
-        {
-            vector<TreeNode*> vec_temp = st.top();
-            st.pop();
-            vector<int> result_temp;
-            for(auto& t: vec_temp)
-            {
-                result_temp.emplace_back(t->val);
-            }
-            result.emplace_back(result_temp);
-        }
+// class Solution {
+// public:
+//     vector<vector<int>> levelOrderBottom(TreeNode* root) {
+//         vector<vector<int>> result;
+//         if(root==nullptr)
+//         {
+//             return result;
+//         }
+//         stack<vector<TreeNode*>> st;
+//         queue<TreeNode*> qt;
+//         qt.push(root);
+//         while(!qt.empty())
+//         {
+//             vector<TreeNode*> vector_temp;
+//             int size=qt.size();
+//             for(int i=0;i<size;i++)
+//             {   
+//                 TreeNode* cur_root=qt.front();
+//                 qt.pop();
+//                 vector_temp.emplace_back(cur_root);
+//                 if(cur_root->left)
+//                 {
+//                     qt.push(cur_root->left);
+//                 }
+//                 if(cur_root->right)
+//                 {
+//                     qt.push(cur_root->right);
+//                 }
+//             }
+//             st.push(vector_temp);
+//         }
+//         while (!st.empty())
+//         {
+//             vector<TreeNode*> vec_temp = st.top();
+//             st.pop();
+//             vector<int> result_temp;
+//             for(auto& t: vec_temp)
+//             {
+//                 result_temp.emplace_back(t->val);
+//             }
+//             result.emplace_back(result_temp);
+//         }
         
-        return result;
-    }
-};
-#include<stack>
-int main()
-{
-    Solution solu;
-    // vector<int> nums1 = {1,2,3,0,0,0};
-    // vector<int> nums2 = {2,5,6};
-    // int sum = 9;
-    // vector<int> result;
-    // solu.merge(nums1,3, nums2,3);
-    // cout << result << endl;
-    // vector<int> nums  = {9,1,4,7,3,-1,0,5,8,-1,6};
-    // int         count = solu.longestConsecutive(nums);
-    // cout << "count = " << count << endl;
-    // 输入: strs = ["eat", "tea", "tan", "ate", "nat", "bat"]
-    // 输出: [["bat"],["nat","tan"],["ate","eat","tea"]]
-    // vector<string> strs = { "eat", "tea", "tan", "ate", "nat", "bat" };
-    // vector<vector<string>> result = solu.groupAnagrams(strs);
-    // vector<int> nums={0,2,0,0,3,0,12};
-    // solu.moveZeroes(nums);
-    // vector<int> nums = {-1, 0, 1, 2, -1, -4};
-    // solu.threeSum(nums);
-    // vector<int> height = {1, 8, 6, 2, 5, 4, 8, 3, 7};
-    // solu.maxArea(height);
-    // string str="abcabcbb";
-    // solu.lengthOfLongestSubstring(str);
-    // string haystack = "leetcode", needle = "leeto";
-    // cout << solu.strStr(haystack, needle) << endl;
+//         return result;
+//     }
+// };
+// #include<stack>
+// int main()
+// {
+//     Solution solu;
+//     // vector<int> nums1 = {1,2,3,0,0,0};
+//     // vector<int> nums2 = {2,5,6};
+//     // int sum = 9;
+//     // vector<int> result;
+//     // solu.merge(nums1,3, nums2,3);
+//     // cout << result << endl;
+//     // vector<int> nums  = {9,1,4,7,3,-1,0,5,8,-1,6};
+//     // int         count = solu.longestConsecutive(nums);
+//     // cout << "count = " << count << endl;
+//     // 输入: strs = ["eat", "tea", "tan", "ate", "nat", "bat"]
+//     // 输出: [["bat"],["nat","tan"],["ate","eat","tea"]]
+//     // vector<string> strs = { "eat", "tea", "tan", "ate", "nat", "bat" };
+//     // vector<vector<string>> result = solu.groupAnagrams(strs);
+//     // vector<int> nums={0,2,0,0,3,0,12};
+//     // solu.moveZeroes(nums);
+//     // vector<int> nums = {-1, 0, 1, 2, -1, -4};
+//     // solu.threeSum(nums);
+//     // vector<int> height = {1, 8, 6, 2, 5, 4, 8, 3, 7};
+//     // solu.maxArea(height);
+//     // string str="abcabcbb";
+//     // solu.lengthOfLongestSubstring(str);
+//     // string haystack = "leetcode", needle = "leeto";
+//     // cout << solu.strStr(haystack, needle) << endl;
     
-    TreeNode* cur15=new TreeNode(15);
-    TreeNode* cur7 = new TreeNode(7);
-    auto cur20=new TreeNode(20,cur15,cur7);
-    auto cur9=new TreeNode(9);
-    TreeNode* root = new TreeNode(3, cur9,cur20);
-    solu.levelOrderBottom(root);
+//     TreeNode* cur15=new TreeNode(15);
+//     TreeNode* cur7 = new TreeNode(7);
+//     auto cur20=new TreeNode(20,cur15,cur7);
+//     auto cur9=new TreeNode(9);
+//     TreeNode* root = new TreeNode(3, cur9,cur20);
+//     solu.levelOrderBottom(root);
     
 
+//     return 0;
+// }
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+// int main() {
+//     string str;
+//     while(getline(cin,str))
+//     {
+//         cout<<"size = "<<str.size()<<endl;
+//         int n=0,flag=1;
+//         for(int i=str.size()-1;i>=0;i--)
+//         {
+//             if(str[i]==' ')
+//             {
+//                 cout<<"i = "<<i<<endl;
+//                 n=str.size()-i-1;
+//                 break;
+//             }
+//         }
+//         cout<<n<<endl;
+//     }
+//     return 0;
+// }
+#include "test.h"
+// void test()
+// {
+//     int a=1,b=2;
+//     cout<<Add(a,b)<<endl;
+// }
+
+
+int main() 
+{
+    // string str;
+    // while(getline(cin,str))
+    // {
+    //     int len=str.length();
+    //     if(len%8!=0)
+    //     {
+    //         int count = 8 - len%8;
+    //         str.append(count,'0');
+    //     }
+    //     // int newLen=str.length();
+    //     int newLen = 0;
+    //     for(int i=0;i<str.length();i+=8)
+    //     {
+    //         cout<<str.substr(i,8)<<endl;
+    //     }
+    // }
+
+    // string str = "dhaiuwfhuaihf";
+    // string str1=str.substr(3,2);
+    // cout<<str1<<endl;
+    // str.append(2,'c');
+    // cout<<str<<endl;
+    //test();
+    cout<<Add(3,2)<<endl;
     return 0;
 }
 

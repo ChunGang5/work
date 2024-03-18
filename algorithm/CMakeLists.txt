@@ -6,7 +6,7 @@ project(algorithm)
 set(CMAKE_CXX_STANDARD 11)
 
 # 添加源文件
-add_executable(test main.cpp)
+add_executable(test main.cpp test.cpp)
 
 # 设置可执行文件输出路径
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR})
