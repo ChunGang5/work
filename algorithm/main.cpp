@@ -541,7 +541,7 @@ using namespace std;
 //             {
 //                 TreeNode* cur_root=tree_queue.front();
 //                 tree_queue.pop();
-//                 temp_vec.emplace_back(cur_root->val); 
+//                 temp_vec.emplace_back(cur_root->val);
 //                 if(cur_root->left!=nullptr)
 //                 {
 //                     tree_queue.push(cur_root->left);
@@ -556,7 +556,7 @@ using namespace std;
 //         }
 //         return result;
 //     }
-    
+
 // };
 
 // 队列加数组逆序的方式更好
@@ -576,7 +576,7 @@ using namespace std;
 //             vector<TreeNode*> vector_temp;
 //             int size=qt.size();
 //             for(int i=0;i<size;i++)
-//             {   
+//             {
 //                 TreeNode* cur_root=qt.front();
 //                 qt.pop();
 //                 vector_temp.emplace_back(cur_root);
@@ -641,6 +641,80 @@ using namespace std;
 //     TreeNode* root = new TreeNode(3, cur9,cur20);
 //     solu.levelOrderBottom(root);
     
+
+//         return result;
+//     }
+// };
+
+// 二叉树的右视图
+class Solution {
+public:
+    vector<int> rightSideView(TreeNode* root) {
+        vector<int> result;
+        if(root==nullptr)
+        {
+            return result;
+        }
+        queue<TreeNode*> queue_tr;
+        queue_tr.push(root);
+        while(!queue_tr.empty())
+        {
+            int size=queue_tr.size();
+            for(int i=0;i<size;i++)
+            {
+                TreeNode* cur=queue_tr.front();
+                queue_tr.pop();
+                if(cur->left)
+                {
+                    queue_tr.push(cur->left);
+                }
+                if(cur->right)
+                {
+                    queue_tr.push(cur->right);
+                }
+                if(size-i<=1)
+                {
+                    result.emplace_back(cur->val);;
+                }
+            }
+        }
+        return result;
+    }
+};
+#include<stack>
+int main()
+{
+    Solution solu;
+    // vector<int> nums1 = {1,2,3,0,0,0};
+    // vector<int> nums2 = {2,5,6};
+    // int sum = 9;
+    // vector<int> result;
+    // solu.merge(nums1,3, nums2,3);
+    // cout << result << endl;
+    // vector<int> nums  = {9,1,4,7,3,-1,0,5,8,-1,6};
+    // int         count = solu.longestConsecutive(nums);
+    // cout << "count = " << count << endl;
+    // 输入: strs = ["eat", "tea", "tan", "ate", "nat", "bat"]
+    // 输出: [["bat"],["nat","tan"],["ate","eat","tea"]]
+    // vector<string> strs = { "eat", "tea", "tan", "ate", "nat", "bat" };
+    // vector<vector<string>> result = solu.groupAnagrams(strs);
+    // vector<int> nums={0,2,0,0,3,0,12};
+    // solu.moveZeroes(nums);
+    // vector<int> nums = {-1, 0, 1, 2, -1, -4};
+    // solu.threeSum(nums);
+    // vector<int> height = {1, 8, 6, 2, 5, 4, 8, 3, 7};
+    // solu.maxArea(height);
+    // string str="abcabcbb";
+    // solu.lengthOfLongestSubstring(str);
+    // string haystack = "leetcode", needle = "leeto";
+    // cout << solu.strStr(haystack, needle) << endl;
+
+    TreeNode* cur15=new TreeNode(15);
+    TreeNode* cur7 = new TreeNode(7);
+    auto cur20=new TreeNode(20,cur15,cur7);
+    auto cur9=new TreeNode(9);
+    TreeNode* root = new TreeNode(3, cur9,cur20);
+    solu.rightSideView(root);
 
 //     return 0;
 // }
