@@ -647,137 +647,140 @@ using namespace std;
 // };
 
 // 二叉树的右视图
-class Solution {
-public:
-    vector<int> rightSideView(TreeNode* root) {
-        vector<int> result;
-        if(root==nullptr)
-        {
-            return result;
-        }
-        queue<TreeNode*> queue_tr;
-        queue_tr.push(root);
-        while(!queue_tr.empty())
-        {
-            int size=queue_tr.size();
-            for(int i=0;i<size;i++)
-            {
-                TreeNode* cur=queue_tr.front();
-                queue_tr.pop();
-                if(cur->left)
-                {
-                    queue_tr.push(cur->left);
-                }
-                if(cur->right)
-                {
-                    queue_tr.push(cur->right);
-                }
-                if(size-i<=1)
-                {
-                    result.emplace_back(cur->val);;
-                }
-            }
-        }
-        return result;
-    }
-};
-#include<stack>
-int main()
-{
-    Solution solu;
-    // vector<int> nums1 = {1,2,3,0,0,0};
-    // vector<int> nums2 = {2,5,6};
-    // int sum = 9;
-    // vector<int> result;
-    // solu.merge(nums1,3, nums2,3);
-    // cout << result << endl;
-    // vector<int> nums  = {9,1,4,7,3,-1,0,5,8,-1,6};
-    // int         count = solu.longestConsecutive(nums);
-    // cout << "count = " << count << endl;
-    // 输入: strs = ["eat", "tea", "tan", "ate", "nat", "bat"]
-    // 输出: [["bat"],["nat","tan"],["ate","eat","tea"]]
-    // vector<string> strs = { "eat", "tea", "tan", "ate", "nat", "bat" };
-    // vector<vector<string>> result = solu.groupAnagrams(strs);
-    // vector<int> nums={0,2,0,0,3,0,12};
-    // solu.moveZeroes(nums);
-    // vector<int> nums = {-1, 0, 1, 2, -1, -4};
-    // solu.threeSum(nums);
-    // vector<int> height = {1, 8, 6, 2, 5, 4, 8, 3, 7};
-    // solu.maxArea(height);
-    // string str="abcabcbb";
-    // solu.lengthOfLongestSubstring(str);
-    // string haystack = "leetcode", needle = "leeto";
-    // cout << solu.strStr(haystack, needle) << endl;
-
-    TreeNode* cur15=new TreeNode(15);
-    TreeNode* cur7 = new TreeNode(7);
-    auto cur20=new TreeNode(20,cur15,cur7);
-    auto cur9=new TreeNode(9);
-    TreeNode* root = new TreeNode(3, cur9,cur20);
-    solu.rightSideView(root);
-
-//     return 0;
-// }
-
-#include <iostream>
-#include <string>
-using namespace std;
-
-// int main() {
-//     string str;
-//     while(getline(cin,str))
-//     {
-//         cout<<"size = "<<str.size()<<endl;
-//         int n=0,flag=1;
-//         for(int i=str.size()-1;i>=0;i--)
+// class Solution {
+// public:
+//     vector<int> rightSideView(TreeNode* root) {
+//         vector<int> result;
+//         if(root==nullptr)
 //         {
-//             if(str[i]==' ')
+//             return result;
+//         }
+//         queue<TreeNode*> queue_tr;
+//         queue_tr.push(root);
+//         while(!queue_tr.empty())
+//         {
+//             int size=queue_tr.size();
+//             for(int i=0;i<size;i++)
 //             {
-//                 cout<<"i = "<<i<<endl;
-//                 n=str.size()-i-1;
-//                 break;
+//                 TreeNode* cur=queue_tr.front();
+//                 queue_tr.pop();
+//                 if(cur->left)
+//                 {
+//                     queue_tr.push(cur->left);
+//                 }
+//                 if(cur->right)
+//                 {
+//                     queue_tr.push(cur->right);
+//                 }
+//                 if(size-i<=1)
+//                 {
+//                     result.emplace_back(cur->val);;
+//                 }
 //             }
 //         }
-//         cout<<n<<endl;
+//         return result;
 //     }
+// };
+// #include<stack>
+// int main()
+// {
+//     Solution solu;
+//     // vector<int> nums1 = {1,2,3,0,0,0};
+//     // vector<int> nums2 = {2,5,6};
+//     // int sum = 9;
+//     // vector<int> result;
+//     // solu.merge(nums1,3, nums2,3);
+//     // cout << result << endl;
+//     // vector<int> nums  = {9,1,4,7,3,-1,0,5,8,-1,6};
+//     // int         count = solu.longestConsecutive(nums);
+//     // cout << "count = " << count << endl;
+//     // 输入: strs = ["eat", "tea", "tan", "ate", "nat", "bat"]
+//     // 输出: [["bat"],["nat","tan"],["ate","eat","tea"]]
+//     // vector<string> strs = { "eat", "tea", "tan", "ate", "nat", "bat" };
+//     // vector<vector<string>> result = solu.groupAnagrams(strs);
+//     // vector<int> nums={0,2,0,0,3,0,12};
+//     // solu.moveZeroes(nums);
+//     // vector<int> nums = {-1, 0, 1, 2, -1, -4};
+//     // solu.threeSum(nums);
+//     // vector<int> height = {1, 8, 6, 2, 5, 4, 8, 3, 7};
+//     // solu.maxArea(height);
+//     // string str="abcabcbb";
+//     // solu.lengthOfLongestSubstring(str);
+//     // string haystack = "leetcode", needle = "leeto";
+//     // cout << solu.strStr(haystack, needle) << endl;
+
+//     TreeNode* cur15=new TreeNode(15);
+//     TreeNode* cur7 = new TreeNode(7);
+//     auto cur20=new TreeNode(20,cur15,cur7);
+//     auto cur9=new TreeNode(9);
+//     TreeNode* root = new TreeNode(3, cur9,cur20);
+//     solu.rightSideView(root);
+
 //     return 0;
 // }
-#include "test.h"
-// void test()
+
+// #include <iostream>
+// #include <string>
+// using namespace std;
+
+// // int main() {
+// //     string str;
+// //     while(getline(cin,str))
+// //     {
+// //         cout<<"size = "<<str.size()<<endl;
+// //         int n=0,flag=1;
+// //         for(int i=str.size()-1;i>=0;i--)
+// //         {
+// //             if(str[i]==' ')
+// //             {
+// //                 cout<<"i = "<<i<<endl;
+// //                 n=str.size()-i-1;
+// //                 break;
+// //             }
+// //         }
+// //         cout<<n<<endl;
+// //     }
+// //     return 0;
+// // }
+// #include "test.h"
+// // void test()
+// // {
+// //     int a=1,b=2;
+// //     cout<<Add(a,b)<<endl;
+// // }
+
+// #include<cmath>
+// int main() 
 // {
-//     int a=1,b=2;
-//     cout<<Add(a,b)<<endl;
+//     // string str;
+//     // while(getline(cin,str))
+//     // {
+//     //     int len=str.length();
+//     //     if(len%8!=0)
+//     //     {
+//     //         int count = 8 - len%8;
+//     //         str.append(count,'0');
+//     //     }
+//     //     // int newLen=str.length();
+//     //     int newLen = 0;
+//     //     for(int i=0;i<str.length();i+=8)
+//     //     {
+//     //         cout<<str.substr(i,8)<<endl;
+//     //     }
+//     // }
+
+//     string str = "dhaiuwfhuaihf";
+//     string str1=str.substr(3,2);
+//     cout<<str1<<endl;
+//     str.append(2,'c');
+//     cout<<str<<endl;
+
+//     int sum = pow(16.0,1);
+//     cout<<sum<<endl;
+//     //test();
+//     //cout<<Add(3,2)<<endl;
+//     return 0;
 // }
-
-
-int main() 
-{
-    // string str;
-    // while(getline(cin,str))
-    // {
-    //     int len=str.length();
-    //     if(len%8!=0)
-    //     {
-    //         int count = 8 - len%8;
-    //         str.append(count,'0');
-    //     }
-    //     // int newLen=str.length();
-    //     int newLen = 0;
-    //     for(int i=0;i<str.length();i+=8)
-    //     {
-    //         cout<<str.substr(i,8)<<endl;
-    //     }
-    // }
-
-    // string str = "dhaiuwfhuaihf";
-    // string str1=str.substr(3,2);
-    // cout<<str1<<endl;
-    // str.append(2,'c');
-    // cout<<str<<endl;
-    //test();
-    cout<<Add(3,2)<<endl;
-    return 0;
-}
 
 // #include <iostream>
 // #include <vector>
@@ -801,3 +804,21 @@ int main()
 
 //     return 0;
 // }
+
+#include<iostream>
+#include<cmath>
+using namespace std;
+
+int main(){
+    long n;
+    cin >> n;
+    for(long i = 2; i <= sqrt(n) && i <= n; i++){  //从小到大的质因子，质因子不会超过它的开方
+        while(n % i == 0){ //所有的质数前面全部除掉，后续就不会有合因子
+            cout << i << " ";
+            n /= i; //除掉质因子
+        }
+    }
+    if(n - 1) //自己本身就是质数
+        cout << n << " ";
+    return 0;
+}
