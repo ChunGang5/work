@@ -805,20 +805,107 @@ using namespace std;
 //     return 0;
 // }
 
-#include<iostream>
-#include<cmath>
+// int main(){
+//     long n;
+//     cin >> n;
+//     for(long i = 2; i <= sqrt(n) && i <= n; i++){  //从小到大的质因子，质因子不会超过它的开方
+//         while(n % i == 0){ //所有的质数前面全部除掉，后续就不会有合因子
+//             cout << i << " ";
+//             n /= i; //除掉质因子
+//         }
+//     }
+//     if(n - 1) //自己本身就是质数
+//         cout << n << " ";
+//     return 0;
+// }
+
+// class test
+// {
+// public:
+//     int test1()
+//     {
+//         return 1;
+//     }
+//     static int test2()
+//     {
+//         return 2;
+//     }
+// private:
+//     int a;
+// };
+
+// int main()
+// {
+//     int a=2;
+//     int& b=a;
+//     b--;
+//     cout<<b<<endl;
+//     test t;
+//     cout<<t.test2()<<endl;;
+//     return 0;
+// }
+
+
+// 迭代器失效问题正确写法
+// int main() {
+//     vector<int> v;
+// 	v.push_back(1);
+// 	v.push_back(2);
+// 	v.push_back(3);
+// 	v.push_back(4);
+// 	auto it = v.begin();
+//     while(it!=v.end())
+//     {
+//         if(*it%2==0)
+//         {
+//             it=v.erase(it);
+//         }
+//         else
+//         {
+//             it++;
+//         }
+//     }
+//     for(auto& i:v)
+//     {
+//         cout<<i<<endl;
+//     }
+//     return 0;
+// }
+
+// 句子逆序
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <string.h>
 using namespace std;
 
-int main(){
-    long n;
-    cin >> n;
-    for(long i = 2; i <= sqrt(n) && i <= n; i++){  //从小到大的质因子，质因子不会超过它的开方
-        while(n % i == 0){ //所有的质数前面全部除掉，后续就不会有合因子
-            cout << i << " ";
-            n /= i; //除掉质因子
+int main() {
+    vector<string> vec;
+    string str="I am a boy";
+    //strlen(str.c_str());
+    int i=0,j=0;
+    string str_fix;
+    // strlen(c库的函数,接受C风格的字符串) size都计算的有效长度，sizeof关键字计算包含\0
+    while(j <= str.size() && i<=j)  //j要等于str.size()，不然到不可\0那一步
+    {
+        if(str[j]!=' ' || str[j]=='\n')
+        {
+            j++;
+        }
+        else 
+        {
+            str_fix=str.substr(i,j-i);
+            vec.emplace_back(str_fix);
+            j++;
+            i=j;
         }
     }
-    if(n - 1) //自己本身就是质数
-        cout << n << " ";
+    reverse(vec.begin(),vec.end());
+    i=0;
+    for(;i<vec.size()-1;i++)
+    {
+        cout<<vec[i]<<" ";
+    }
+    cout<<vec[i]<<endl;
     return 0;
 }
