@@ -873,39 +873,69 @@ using namespace std;
 // }
 
 // 句子逆序
+// #include <iostream>
+// #include <vector>
+// #include <algorithm>
+// #include <string.h>
+// using namespace std;
+
+// int main() {
+//     vector<string> vec;
+//     string str="I am a boy";
+//     //strlen(str.c_str());
+//     int i=0,j=0;
+//     string str_fix;
+//     // strlen(c库的函数,接受C风格的字符串) size都计算的有效长度，sizeof关键字计算包含\0
+//     while(j <= str.size() && i<=j)  //j要等于str.size()，不然到不可\0那一步
+//     {
+//         if(str[j]!=' ' || str[j]=='\n')
+//         {
+//             j++;
+//         }
+//         else 
+//         {
+//             str_fix=str.substr(i,j-i);
+//             vec.emplace_back(str_fix);
+//             j++;
+//             i=j;
+//         }
+//     }
+//     reverse(vec.begin(),vec.end());
+//     i=0;
+//     for(;i<vec.size()-1;i++)
+//     {
+//         cout<<vec[i]<<" ";
+//     }
+//     cout<<vec[i]<<endl;
+//     return 0;
+// }
+
 #include <iostream>
-#include <vector>
+#include <forward_list>
 #include <algorithm>
-#include <string.h>
 using namespace std;
 
 int main() {
-    vector<string> vec;
-    string str="I am a boy";
-    //strlen(str.c_str());
-    int i=0,j=0;
-    string str_fix;
-    // strlen(c库的函数,接受C风格的字符串) size都计算的有效长度，sizeof关键字计算包含\0
-    while(j <= str.size() && i<=j)  //j要等于str.size()，不然到不可\0那一步
+    int num;
+    cin>>num;
+    int head_val;
+    cin>>head_val;
+    forward_list<int> list;
+    list.push_front(head_val);
+    for(int i =1;i<num;i++)
     {
-        if(str[j]!=' ' || str[j]=='\n')
-        {
-            j++;
-        }
-        else 
-        {
-            str_fix=str.substr(i,j-i);
-            vec.emplace_back(str_fix);
-            j++;
-            i=j;
-        }
+        int front,back;
+        cin>>back>>front;
+        auto it=find(list.begin(),list.end(),front);
+        list.insert_after(it,back);
     }
-    reverse(vec.begin(),vec.end());
-    i=0;
-    for(;i<vec.size()-1;i++)
+    int last;
+    cin>>last;
+    list.remove(last);
+    for(auto it:list)
     {
-        cout<<vec[i]<<" ";
+        cout<<it<<" ";
     }
-    cout<<vec[i]<<endl;
+    cout<<endl;
     return 0;
 }
