@@ -910,32 +910,113 @@ using namespace std;
 //     return 0;
 // }
 
-#include <iostream>
-#include <forward_list>
-#include <algorithm>
-using namespace std;
+// #include <iostream>
+// #include <forward_list>
+// #include <algorithm>
+// using namespace std;
 
-int main() {
-    int num;
-    cin>>num;
-    int head_val;
-    cin>>head_val;
-    forward_list<int> list;
-    list.push_front(head_val);
-    for(int i =1;i<num;i++)
+// int main() {
+//     int num;
+//     cin>>num;
+//     int head_val;
+//     cin>>head_val;
+//     forward_list<int> list;
+//     list.push_front(head_val);
+//     for(int i =1;i<num;i++)
+//     {
+//         int front,back;
+//         cin>>back>>front;
+//         auto it=find(list.begin(),list.end(),front);
+//         list.insert_after(it,back);
+//     }
+//     int last;
+//     cin>>last;
+//     list.remove(last);
+//     for(auto it:list)
+//     {
+//         cout<<it<<" ";
+//     }
+//     cout<<endl;
+//     return 0;
+// }
+
+// class test
+// {
+// public:
+//     test(/* args */);
+//     int add()
+//     {
+//         return 1;
+//     }
+// private:
+    
+//     ~test();
+// };
+
+// test::test(/* args */)
+// {
+// }
+
+// test::~test()
+// {
+// }
+
+// class test2:public test
+// {
+// private:
+//     /* data */
+// public:
+//     test2(/* args */)
+//     {
+
+//     }
+//     ~test2()
+//     {
+
+//     }
+// };
+
+// int main()
+// {
+//     test t1;
+//     cout<<t1.add()<<endl;
+//     test* p=nullptr;
+//     cout<<p->add()<<endl;;
+//     int a=1,b=2;
+//     decltype(a+b) c=0;
+//     cout<<c<<endl;
+
+//     return 0;
+    
+// }
+
+
+class B
+{
+public:
+    B()
+    {}
+    ~B()
     {
-        int front,back;
-        cin>>back>>front;
-        auto it=find(list.begin(),list.end(),front);
-        list.insert_after(it,back);
+        cout<<"~B"<<endl;
     }
-    int last;
-    cin>>last;
-    list.remove(last);
-    for(auto it:list)
+};
+class D:public B
+{
+public:
+    D()
     {
-        cout<<it<<" ";
+
     }
-    cout<<endl;
+    ~D()
+    {
+        cout<<"~D"<<endl;
+    }
+};
+
+int main()
+{
+    B* pb=new D;
+    delete pb;
     return 0;
 }
