@@ -991,32 +991,56 @@ using namespace std;
 // }
 
 
-class B
-{
-public:
-    B()
-    {}
-    ~B()
-    {
-        cout<<"~B"<<endl;
-    }
-};
-class D:public B
-{
-public:
-    D()
-    {
+// class B
+// {
+// public:
+//     B()
+//     {}
+//     ~B()
+//     {
+//         cout<<"~B"<<endl;
+//     }
+// };
+// class D:public B
+// {
+// public:
+//     D()
+//     {
 
-    }
-    ~D()
-    {
-        cout<<"~D"<<endl;
-    }
-};
+//     }
+//     ~D()
+//     {
+//         cout<<"~D"<<endl;
+//     }
+// };
 
+// int main()
+// {
+//     B* pb=new D;
+//     delete pb;
+//     return 0;
+// }
+
+int test(vector<int> nums, int val)
+{
+    auto it=nums.begin();
+    while(it!=nums.end())
+    {
+        if(*it==val)
+        {
+            it=nums.erase(it);
+        }
+        else
+        {
+            it++;
+        }
+    }
+    return nums.size();
+}
 int main()
 {
-    B* pb=new D;
-    delete pb;
+    vector<int> nums={1,2,1,2,3,4,5};
+    int val=2;
+    cout<<test(nums, val)<<endl;
     return 0;
 }
